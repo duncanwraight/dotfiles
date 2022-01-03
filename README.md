@@ -76,3 +76,5 @@ Quite a few applications are missing from Linux because they're not installed wi
  - kubectl
  - helm
  - terraform
+
+I would also like to change the `install` script to read required plugins from the `profiles/` files. E.g. for `brew`, I could specify `brew:.dotbot-brew` and interpret the latter part of that statement as the required plugin directory to go with the config file. Watch this space!

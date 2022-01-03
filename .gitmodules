@@ -22,3 +22,6 @@
 [submodule "ssh-private"]
 	path = ssh
 	url = git@github.com:duncz/ssh-private.git
+[submodule "repos-private"]
+	path = repos
+	url = git@github.com:duncz/repos-private.git

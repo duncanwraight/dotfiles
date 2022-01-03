@@ -1,0 +1,4 @@
+- link:
+    ~/Archive/:
+      glob: true
+      path: repos/*

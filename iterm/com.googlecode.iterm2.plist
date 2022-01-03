@@ -1020,7 +1020,9 @@
 	<key>SoundForEsc</key>
 	<false/>
 	<key>SwitchPaneModifier</key>
-	<integer>5</integer>
+	<integer>1</integer>
+	<key>SwitchWindowModifier</key>
+	<integer>6</integer>
 	<key>UseBorder</key>
 	<false/>
 	<key>VisualIndicatorForEsc</key>

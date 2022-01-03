@@ -6,6 +6,15 @@ By trade I'm a DevOps Engineer, working with Azure, AWS, Kubernetes, Docker, Hel
 
 During this process I've found other people's dotfile repositories really useful, so I thought I'd take the opportunity to open mine up on Github. Hopefully something contained within these files will prove useful to someone!
 
+## Configuring MacOS to be like Linux with i3
+In a different repo, I have actually tried to configure my Mac to work in exactly the same way as my Linux i3 setup. For this I used Yabai and SKHD.
+
+It... kinda worked, but mostly didn't. Firstly, system-wide keyboard shortcuts are plentiful in MacOS by default and they often interfere with the bindings I would use in i3. Secondly, there is no "unused" key (like the Winkey on a Linux device) which is perfect for a command key.
+
+Finally, I found everything on MacOS to be so much slower than the Linux equivalent that it just felt totally pointless. Hitting Win+Enter to bring up a Terminal window is practically instant on Linux, whereas even with a single instance of Kitty on MacOS there would sometimes be a noticeable delay.
+
+Instead I'm now using Raycast, and a bit of SKHD, and trying to use the work Mac more like an actual Mac.
+
 ## Caveat
 
 It's important to note that because of a few hardcoded paths, a private SSH submodule and device-specific builds in the Linux dotfiles, it's unlikely that following the installation instructions will work as expected.
@@ -55,6 +64,10 @@ Tested on Debian 11
 
  - Each application has its own Dotbot configuration in `meta/configs`. Modify these files, or create your own.
  - Update an OS profile in `meta/profiles` by adding or removing the base name of a `meta/configs` `.yaml` file, e.g. `meta/configs/brew.yaml` simply becomes `brew` in `meta/profiles/mac`.
+
+## Troubleshooting
+
+ - If Zsh starts playing up, e.g. prompt changes, try deleting the `.zgenom` folder
 
 ## TODO
 

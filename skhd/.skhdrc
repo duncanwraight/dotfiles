@@ -1,0 +1,2 @@
+# Open an iTerm2 instance or a new window within iTerm2
+cmd + return : ~/.local/bin/open_iterm2.sh

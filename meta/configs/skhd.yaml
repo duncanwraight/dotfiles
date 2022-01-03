@@ -1,0 +1,9 @@
+- brew:
+    - koekeishiya/formulae/skhd
+
+- link:
+    ~/.skhdrc: skhd/.skhdrc
+    ~/.local/bin/open_iterm2.sh: skhd/open_iterm2.sh
+
+- shell:
+    - brew services start skhd

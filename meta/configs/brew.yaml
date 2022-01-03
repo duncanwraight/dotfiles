@@ -1,0 +1,48 @@
+- tap:
+    - homebrew/bundle
+    - homebrew/cask
+    - homebrew/cask-fonts
+    - homebrew/cask-versions
+    - homebrew/core
+    - homebrew/services
+
+- brew:
+    - awscli
+    - bat
+    - coreutils
+    - ctop
+    - duti
+    - fzf
+    - git
+    - github
+    - go
+    - helm
+    - htop
+    - iterm2
+    - jq
+    - lazygit
+    - libreoffice
+    - kubectl
+    - m-cli
+    - nmap
+    - node
+    - neovim
+    - openssl
+    - pyenv
+    - python
+    - python@3.9
+    - pipenv
+    - postgresql
+    - ripgrep
+    - standard-notes
+    - stow
+    - sublime-text
+    - visual-studio-code
+    - zsh
+
+- cask:
+    - docker
+    - firefox
+    - kitty
+    - font-hack-nerd-font
+    - Slack

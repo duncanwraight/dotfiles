@@ -1,0 +1,4 @@
+- link:
+    ~/.ssh/:
+      glob: true
+      path: ssh/*

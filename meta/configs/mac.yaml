@@ -1,0 +1,8 @@
+- shell:
+    - rm -rfd ~/Downloads/powerline
+    - rm -rfd ~/Downloads/dracula
+    - [git clone https://github.com/powerline/fonts.git --depth=1 ~/Downloads/powerline, Cloning Powerline fonts]
+    - [git clone https://github.com/dracula/iterm.git ~/Downloads/dracula, Cloning Dracula theme to ~/Downloads/dracula]
+    - [bash ~/Downloads/powerline/install.sh, Installing Powerline fonts]
+    - rm -rfd ~/Downloads/powerline
+    - [bash ./macos/defaults, Setting MacOS defaults - some of these won't take effect until after restart]

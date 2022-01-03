@@ -1,0 +1,4 @@
+- link:
+    ~/.config/nvim/:
+      glob: true
+      path: nvim/*

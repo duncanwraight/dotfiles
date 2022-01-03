@@ -1,0 +1,8 @@
+- link:
+    ~/.zshrc.d/:
+      glob: true
+      path: zsh/zshrc.d/*
+    ~/.p10k.zsh: zsh/p10k.zsh
+    ~/zsh-quickstart-kit: .zsh-quickstart-kit
+    ~/zgenom: .zgenom
+    ~/.zshrc: .zsh-quickstart-kit/zsh/.zshrc

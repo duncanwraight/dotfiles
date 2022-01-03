@@ -1,0 +1,4 @@
+- link:
+    ~/.config/i3/config:
+      force: true
+      path: i3/config

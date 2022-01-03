@@ -1,0 +1,4 @@
+- link:
+    ~/.config/rofi/:
+      glob: true
+      path: rofi/*

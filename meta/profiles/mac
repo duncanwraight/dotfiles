@@ -1,11 +1,11 @@
-brew
+brew:.dotbot-brew
 zsh
 ssh
-python
+python:.dotbot-pip
 nvim
 mac
-skhd
-raycast
+skhd:.dotbot-brew
+raycast:.dotbot-brew
 repos
 popeye
 cht.sh

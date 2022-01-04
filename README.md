@@ -64,10 +64,15 @@ Tested on Debian 11
 
  - Each application has its own Dotbot configuration in `meta/configs`. Modify these files, or create your own.
  - Update an OS profile in `meta/profiles` by adding or removing the base name of a `meta/configs` `.yaml` file, e.g. `meta/configs/brew.yaml` simply becomes `brew` in `meta/profiles/mac`.
+ - If a config requires a plugin, add a `git submodule` for the plugin and then specify the directory in the `profiles` file, e.g. `brew:.dotbot-brew`. For multiple plugins, use multiple delimiters, e.g. `brew:.dotbot-brew:.dotbot-pip`
 
 ## Troubleshooting
 
  - If Zsh starts playing up, e.g. prompt changes, try deleting the `.zgenom` folder
+
+## CHANGELOG
+
+See commits.
 
 ## TODO
 
@@ -76,5 +81,3 @@ Quite a few applications are missing from Linux because they're not installed wi
  - kubectl
  - helm
  - terraform
-
-I would also like to change the `install` script to read required plugins from the `profiles/` files. E.g. for `brew`, I could specify `brew:.dotbot-brew` and interpret the latter part of that statement as the required plugin directory to go with the config file. Watch this space!

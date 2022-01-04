@@ -1,8 +1,8 @@
-apt
+apt:.dotbot-aptget
 i3
 python
 cht.sh
-low-battery
+low-battery:.dotbot-crontab
 nvim
 polybar
 repos

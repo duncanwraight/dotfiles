@@ -1,0 +1,7 @@
+[user]
+	name = Duncan Wraight
+	email = dunc@seriouslyfish.com
+[includeIf "gitdir:~/Repos/import.io"]
+    path = ~/Repos/import.io.gitconfig
+[pull]
+	rebase = true

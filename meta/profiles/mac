@@ -1,4 +1,6 @@
+git
 brew:.dotbot-brew
+fonts-mac
 zsh
 ssh
 python:.dotbot-pip
@@ -9,4 +11,4 @@ raycast:.dotbot-brew
 repos
 popeye
 cht.sh
-git
+path-mac

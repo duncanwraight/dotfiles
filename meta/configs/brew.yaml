@@ -37,7 +37,9 @@
     - ripgrep
     - standard-notes
     - stow
+    - tree
     - warrensbox/tap/tfswitch
+    - wget
     - visual-studio-code
     - zsh
 

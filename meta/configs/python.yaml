@@ -10,4 +10,4 @@
 
 - pip:
     file: pip/requirements.txt
-    binary: /usr/local/bin/pip3
+    binary: /usr/bin/pip3

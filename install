@@ -28,12 +28,13 @@ echo ${CONFIGS}
 
 for config in ${CONFIGS} ${@}; do
   echo -e "\nConfigure $config"
-  IFS=':' read -r -a plugins <<< "$config"
+  IFS=':' read -r -a CONFIG_PLUGINS <<< "$config"
   PLUGINS=""
-  if [ ${#plugins[@]} -gt 1 ]; then
-      plugins=("${plugins[@]:1}")
-      for plugin in "${plugins[@]}"; do
-          PLUGINS="${PLUGINS} --plugin-dir $plugin"
+  if [ ${#CONFIG_PLUGINS[@]} -gt 1 ]; then
+      config=${CONFIG_PLUGINS[0]}
+      CONFIG_PLUGINS=("${CONFIG_PLUGINS[@]:1}")
+      for plugin in "${CONFIG_PLUGINS[@]}"; do
+          PLUGINS="${PLUGINS} --plugin-dir ./$plugin"
       done
   fi
   echo "  Plugins for $config: ${PLUGINS}"

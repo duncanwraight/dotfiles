@@ -1,4 +1,15 @@
+- clean:
+    ~/.ssh:
+      force: true
+      recursive: true
+
 - link:
     ~/.ssh/:
       glob: true
       path: ssh/*
+
+- shell:
+    - chmod 700 ~/.ssh
+    - find ~/.ssh -type d -follow -exec chmod 700 {} \;
+    - find ~/.ssh -type f -follow -exec chmod 600 {} \;
+    - find ~/.ssh -type f -name "*.pub" -follow -exec chmod 644 {} \;

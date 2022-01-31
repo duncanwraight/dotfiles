@@ -1,3 +1,23 @@
+- clean:
+    ~/.zshrc.d:
+      force: true
+      recursive: true
+    ~/zsh-quickstart-kit:
+      force: true
+      recursive: true
+    ~/zgenom:
+      force: true
+      recursive: true
+    ~/.zgenom:
+      force: true
+      recursive: true
+    ~/.zshrc:
+      force: true
+    ~/.zgen-setup:
+      force: true
+    ~/.p10k.zsh:
+      force: true
+
 - link:
     ~/.zshrc.d/:
       glob: true
@@ -6,3 +26,6 @@
     ~/zsh-quickstart-kit: .zsh-quickstart-kit
     ~/zgenom: .zgenom
     ~/.zshrc: .zsh-quickstart-kit/zsh/.zshrc
+    ~/.zgen-setup: .zsh-quickstart-kit/zsh/.zgen-setup
+    ~/.zsh_aliases: .zsh-quickstart-kit/zsh/.zsh_aliases
+    ~/.zsh_functions: .zsh-quickstart-kit/zsh/.zsh_functions

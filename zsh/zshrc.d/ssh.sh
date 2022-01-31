@@ -8,9 +8,12 @@ sshkeys () {
 
     if [[ "$1" == "qp" ]] || [[ "$1" == "zip" ]]; then
         echo -e "${COL_LBLUE}Adding ${COL_RED}Zip/QuadPay${COL_LBLUE} SSH key${COL_BLANK}"
-        ssh-add /home/dunc/.ssh/zip/qp_id_ed25519 > /dev/null 2>&1
+        ssh-add $HOME/.ssh/zip/qp_id_ed25519 > /dev/null 2>&1
+    elif [[ "$1" == "import" ]]; then
+        echo -e "${COL_LBLUE}Adding ${COL_RED}import.io${COL_LBLUE} SSH key${COL_BLANK}"
+        ssh-add $HOME/.ssh/import/import_id_ed25519 > /dev/null 2>&1
     else
         echo -e "${COL_LBLUE}Adding ${COL_RED}personal${COL_LBLUE} SSH key${COL_BLANK}"
-        ssh-add /home/dunc/.ssh/personal/pers_id_ed25519 > /dev/null 2>&1
+        ssh-add $HOME/.ssh/personal/pers_id_ed25519 > /dev/null 2>&1
     fi
 }

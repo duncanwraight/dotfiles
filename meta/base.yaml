@@ -4,7 +4,7 @@
       relink: true
       force: true
 
-- clean: [~]
+- clean: ['~']
 
 - create:
     - ~/.local/bin

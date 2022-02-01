@@ -1,8 +1,17 @@
 - shell:
+    # Fonts required for p10k
     - rm -rfd ~/Downloads/powerline
     - rm -rfd ~/Downloads/dracula
     - [git clone https://github.com/powerline/fonts.git --depth=1 ~/Downloads/powerline, Cloning Powerline fonts]
-    - [git clone https://github.com/dracula/iterm.git ~/Downloads/dracula, Cloning Dracula theme to ~/Downloads/dracula]
     - [bash ~/Downloads/powerline/install.sh, Installing Powerline fonts]
     - rm -rfd ~/Downloads/powerline
+    - wget -O ~/Library/fonts/MesloLGS\ NF\ Regular.ttf https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf 
+    - wget -O ~/Library/fonts/MesloLGS\ NF\ Bold.ttf  https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf 
+    - wget -O ~/Library/fonts/MesloLGS\ NF\ Italic.ttf https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf 
+    - wget -O ~/Library/fonts/MesloLGS\ NF\ Bold\ Italic.ttf https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf 
+    
+    # iTerm2 Dracula theme
+    - [git clone https://github.com/dracula/iterm.git ~/Downloads/dracula, Cloning Dracula theme to ~/Downloads/dracula]
+    
+    # Mac defaults
     - [bash ./macos/defaults, Setting MacOS defaults - some of these won't take effect until after restart]

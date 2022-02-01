@@ -1,11 +1,10 @@
 git
 brew:.dotbot-brew
-fonts-mac
+mac
 zsh
 ssh
 python:.dotbot-pip
 nvim
-mac
 skhd:.dotbot-brew
 raycast:.dotbot-brew
 repos

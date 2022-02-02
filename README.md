@@ -81,3 +81,5 @@ Quite a few applications are missing from Linux because they're not installed wi
  - kubectl
  - helm
  - terraform
+
+Also need to find all snap-installed applications and create a config for that.

@@ -1,0 +1,15 @@
+apt:.dotbot-aptget
+i3
+python
+cht.sh
+low-battery:.dotbot-crontab
+nvim
+polybar
+repos
+popeye
+purpleexplorer
+rofi
+ssh
+zsh
+git
+path-linux

@@ -1,6 +1,9 @@
 # Generic
 path+=("$HOME/.local/bin")
 
+# NPM
+path+=("$HOME/.npm-global/bin")
+
 # Go-related paths
 export GOPATH=$HOME/work
 path+=('/usr/local/go/bin')

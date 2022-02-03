@@ -1,29 +1,34 @@
 alias v="nvim"
 alias lg="lazygit"
-alias whatismyip="curl ifconfig.me"
 alias gbranch="ZSH_PLUGINS_ALIAS_TIPS_EXCLUDES="git" git rev-parse --abbrev-ref HEAD 2> /dev/null | sed 's/\r//'"
 
 oaws() {
-    # Check to see if the first argument exists as a profile in our Okta configuration
-    grep "\[$1\]" ~/.okta-aws > /dev/null 2&>1
-    if [ $? -ne 0 ]; then
-        profile="importio"
+    if [ "$#" -eq 0 ]; then
+        echo "No Okta profile specified; using importio (Okta) and default (AWS) profiles"
+        OKTA_PROFILE="importio"
+        AWS_PROFILE="default"
     else
-        profile=$1
-        shift
+        # Check to see if the first argument exists as a profile in our Okta configuration
+        grep "\[$1\]" ~/.okta-aws > /dev/null 2&>1
+        if [ $? -ne 0 ]; then
+            echo "Profile ${1} does not exist in ~/.okta-aws. Using importio (Okta) and default (AWS) profiles"
+            OKTA_PROFILE="importio"
+            AWS_PROFILE="default"
+        else
+            echo "Profile ${1} exists in ~/.okta-aws"
+            OKTA_PROFILE=$1
+            AWS_PROFILE=$1
+        fi
     fi
 
-    oktacmd="okta-awscli --okta-profile $profile --profile $profile"
+    okta-awscli --okta-profile $OKTA_PROFILE --profile $AWS_PROFILE
 
     # Check to see if the profile has a default region
-    grep -A1 $profile ~/.aws/config | grep region  > /dev/null 2&>1
+    grep -A1 $AWS_PROFILE ~/.aws/config | grep region  > /dev/null 2&>1
     if [ $? -ne 0 ]; then
-        echo "${profile} doesn't have a default region. Running 'aws configure'..."
-        eval "$oktacmd configure"
+        echo "Profile ${AWS_PROFILE} doesn't have a default region. Running 'aws configure'..."
+        aws --profile $AWS_PROFILE configure
     fi
-
-    # Run the rest of our arguments as aws CLI commands
-    eval "$oktacmd $@"
 }
 
 killzoom() {

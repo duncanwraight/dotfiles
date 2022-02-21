@@ -13,6 +13,11 @@ kubectx() {
     echo "${COL_LBLUE}Checking AWS credentials/configuration...${COL_BLANK}"
     oaws
 
+    if [ $? -ne 0 ]; then
+        echo "${COL_RED} Okta AWS authentication failed. Exiting..."
+        return
+    fi
+
     ENV=$1
     echo "${COL_LBLUE}Getting credentials for ${COL_GRN}${(C)ENV}${COL_BLANK} cluster${COL_BLANK}"
     aws eks update-kubeconfig --region "us-east-1" --name "k8s-${ENV}" --role-arn arn:aws:iam::448216300011:role/k8s-master-user-role

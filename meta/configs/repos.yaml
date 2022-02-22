@@ -2,3 +2,9 @@
     ~/Archive/:
       glob: true
       path: repos/*
+    ~/Repos/repo-aliases: repos/repo-aliases
+
+- create:
+    - ~/Repos
+    - ~/Repos/import.io
+

@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 _crepo_completions()
 {
     for repo in $(cut -d ':' -f1 $REPOS_PATH/repo-aliases) ; do

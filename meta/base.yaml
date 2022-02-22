@@ -9,8 +9,6 @@
 - create:
     - ~/.local/bin
     - ~/Downloads
-    - ~/Repos
-    - ~/Repos/import.io
 
 - shell:
   - [git submodule update --init --recursive, Installing submodules]

@@ -6,7 +6,7 @@ kubectx() {
 
     if [[ "$#" -ne "1" ]] || [[ "$1" != "staging" && "$1" != "demo" && "$1" != "production" ]] ; then
         echo "kubectx requires 1 parameter - staging, demo, production"
-        return 1
+        return
     fi
 
     # Run oaws command to ensure importio Okta profile and default AWS profile are in use

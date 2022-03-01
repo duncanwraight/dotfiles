@@ -4,7 +4,7 @@ export JSONPATH_IMAGE='{$.spec.template.spec.containers[:1].image}'
 kubectx() {
     source $COL_SCRIPT_PATH;
 
-    if [[ "$#" -ne "1" ]] || [[ "$1" != "staging" && "$1" != "demo" && "$1" != "production" ]] ; then
+    if [[ "$#" -ne 1 ]] || ( [[ "$1" != "staging" ]] && [[ "$1" != "demo" ]] && [[ "$1" != "production" ]] ) ; then
         echo "kubectx requires 1 parameter - staging, demo, production"
         return
     fi

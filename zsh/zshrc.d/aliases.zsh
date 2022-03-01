@@ -9,7 +9,7 @@ oaws() {
         AWS_PROFILE="default"
     else
         # Check to see if the first argument exists as a profile in our Okta configuration
-        grep "\[$1\]" ~/.okta-aws > /dev/null 2&>1
+        grep "\[$1\]" ~/.okta-aws > /dev/null 2>&1
         if [ $? -ne 0 ]; then
             echo "Profile ${1} does not exist in ~/.okta-aws. Using importio (Okta) and default (AWS) profiles"
             OKTA_PROFILE="importio"
@@ -24,7 +24,7 @@ oaws() {
     okta-awscli --okta-profile $OKTA_PROFILE --profile $AWS_PROFILE
 
     # Check to see if the profile has a default region
-    grep -A1 $AWS_PROFILE ~/.aws/config | grep region  > /dev/null 2&>1
+    grep -A1 $AWS_PROFILE ~/.aws/config | grep region  > /dev/null 2>&1
     if [ $? -ne 0 ]; then
         echo "Profile ${AWS_PROFILE} doesn't have a default region. Running 'aws configure'..."
         aws --profile $AWS_PROFILE configure

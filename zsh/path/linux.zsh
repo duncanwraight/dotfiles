@@ -13,6 +13,6 @@ path+=("$GOPATH/bin")
 
 path+=("$HOME/.local/bin/PurpleExplorer")
 path+=('/usr/local/Discord')
-path+=("$HOME/.garden/bin")
+path+=("/opt/zscaler/bin")
 
 export PATH

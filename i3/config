@@ -177,10 +177,10 @@ set $ws2 "2: term"
 set $ws3 "3: web"
 set $ws4 "4: code"
 set $ws5 "5: music"
-set $ws6 6
-set $ws7 7
+set $ws6 "6: video"
+set $ws7 "7: notes"
 set $ws8 8
-set $ws9 "9: subl"
+set $ws9 9
 set $ws0 "vpn"
 
 # monitors
@@ -196,8 +196,9 @@ workspace $ws9 output HDMI-1 eDP-1
 workspace $ws0 output HDMI-1 eDP-1
 
 # assignments
-for_window [class="Spotify"] move to workspace $ws5, workspace --no-auto-back-and-forth $ws5
+assign [class="Spotify"] $ws5
 assign [class="slack"] $ws1
+assign [class="ZSTray"] $ws0
 
 # switch to workspace
 bindsym $mod+1 workspace $ws1

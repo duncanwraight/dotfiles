@@ -39,6 +39,10 @@ killchrome() {
     ps -aux | grep chrome | grep -v grep | awk '{print $2}' | xargs kill -9
 }
 
+killteams() {
+    ps -aux | grep teams | grep -v grep | awk '{print $2}' | xargs kill -9
+}
+
 gpom() {
     if [ -d .git ]; then
         git show-branch remotes/origin/master >/dev/null 2>&1

@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 set -e
 
@@ -18,13 +18,14 @@ BASE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 cd "${BASE_DIR}"
 
+# Without dos2unix, this script won't work on WSL
+dos2unix "${META_DIR}/${PROFILES_DIR}/$1"
 while IFS= read -r config; do
   CONFIGS+=" ${config}"
 done <"${META_DIR}/${PROFILES_DIR}/$1"
 
+# Remove profile (e.g. "linux") from being selected as a config
 shift
-
-echo ${CONFIGS}
 
 for config in ${CONFIGS} ${@}; do
   echo -e "\nConfigure $config"
@@ -39,6 +40,7 @@ for config in ${CONFIGS} ${@}; do
   fi
   echo "  Plugins for $config: ${PLUGINS}"
   configFile="$(mktemp)"
+  dos2unix $configFile
   echo -e "$(<"${BASE_DIR}/${META_DIR}/${BASE_CONFIG}${CONFIG_SUFFIX}")\n$(<"${BASE_DIR}/${META_DIR}/${CONFIG_DIR}/${config}${CONFIG_SUFFIX}")" >"$configFile"
   "${BASE_DIR}/${META_DIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASE_DIR}" ${PLUGINS} -c "$configFile"
   rm -f "$configFile"

@@ -1,0 +1,20 @@
+- link:
+    ~/.local/bin/popeye: binaries/popeye
+    ~/.local/bin/PurpleExplorer: binaries/PurpleExplorer
+    ~/.local/bin/cht.sh: binaries/cht.sh
+
+- shell:
+    # kubectl
+    - curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+    - sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+    - kubectl version --client
+    # helm
+    - curl https://get.helm.sh/helm-v3.9.2-linux-amd64.tar.gz -o helm.tar.gz
+    - tar -zxvf helm.tar.gz
+    - mv linux-amd64/helm /usr/local/bin/helm
+    - helm version
+    # npm
+    - curl -sL https://deb.nodesource.com/setup_16.x | sudo bash -
+    - sudo apt-get install -y nodejs
+    # cleanup
+    - rm -rfd {kubectl,helm.tar.gz,linux-amd64}

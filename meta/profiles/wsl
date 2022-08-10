@@ -1,9 +1,9 @@
 apt-wsl:.dotbot-aptget
 python:.dotbot-pip
-cht.sh
 nvim
 repos
 ssh
 zsh
 git
+binaries
 path-linux

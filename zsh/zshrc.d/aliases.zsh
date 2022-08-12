@@ -43,6 +43,12 @@ killteams() {
     ps -aux | grep teams | grep -v grep | awk '{print $2}' | xargs kill -9
 }
 
+killzscaler() {
+    for proc in zstunnel zsaservice ZSTray ; do
+        ps -aux | grep $proc | grep -v grep | awk '{print $2}' | sudo xargs kill -9
+    done
+}
+
 gpom() {
     if [ -d .git ]; then
         git show-branch remotes/origin/master >/dev/null 2>&1

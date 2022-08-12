@@ -13,6 +13,9 @@ path+=("$GOPATH/bin")
 
 path+=("$HOME/.local/bin/PurpleExplorer")
 path+=('/usr/local/Discord')
+
+# bp
 path+=("/opt/zscaler/bin")
+path+=("$HOME/.local/bin/awsconnect")
 
 export PATH

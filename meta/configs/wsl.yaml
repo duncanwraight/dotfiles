@@ -1,0 +1,9 @@
+- shell:
+  # fix for nvim crashing on paste
+  - wget https://github.com/equalsraf/win32yank/releases/download/v0.0.4/win32yank-x64.zip
+  - unzip win32yank-x64.zip -d win32yank
+  - sudo mv win32yank/win32yank.exe /usr/local/bin
+  - sudo chmod +x /usr/local/bin/win32yank.exe
+  - win32yank.exe -o
+  # cleanup
+  - rm win32yank-x64.zip

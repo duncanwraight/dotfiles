@@ -577,3 +577,18 @@ endif
 
 " dunc changes
 set inccommand=nosplit
+
+if has('wsl')
+    let g:clipboard = {
+          \   'name': 'wslclipboard',
+          \   'copy': {
+          \      '+': '/usr/local/bin/win32yank.exe -i --crlf',
+          \      '*': '/usr/local/bin/win32yank.exe -i --crlf',
+          \    },
+          \   'paste': {
+          \      '+': '/usr/local/bin/win32yank.exe -o --lf',
+          \      '*': '/usr/local/bin/win32yank.exe -o --lf',
+          \   },
+          \   'cache_enabled': 1,
+          \ }
+endif

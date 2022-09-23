@@ -16,5 +16,7 @@
     # npm
     - curl -sL https://deb.nodesource.com/setup_16.x | sudo bash -
     - sudo apt-get install -y nodejs
+    # tfswitch
+    - curl -L https://raw.githubusercontent.com/warrensbox/terraform-switcher/release/install.sh | sudo bash
     # cleanup
     - rm -rfd {kubectl,helm.tar.gz,linux-amd64}

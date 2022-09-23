@@ -68,3 +68,20 @@ gpom() {
         echo "$(pwd) is not a Git repository"
     fi
 }
+
+awscreds() {
+    if [ $# -ne 1 ] ; then
+        echo "Requires 1 argument; the name of the AWS profile to use"
+        return 1
+    fi
+
+    grep --quiet $1 ~/.aws/credentials > /dev/null
+    if [ $? -ne 0 ] ; then
+        echo "${1} not found in AWS credentials file"
+        return 1
+    fi
+
+    export AWS_DEFAULT_REGION=eu-west-2
+    export AWS_REGION=eu-west-2
+    export AWS_DEFAULT_PROFILE=$1
+}

@@ -19,7 +19,7 @@ BASE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "${BASE_DIR}"
 
 # Without dos2unix, this script won't work on WSL
-dos2unix "${META_DIR}/${PROFILES_DIR}/$1"
+if command -v dos2unix &> /dev/null ; then dos2unix "${META_DIR}/${PROFILES_DIR}/$1" ; fi
 while IFS= read -r config; do
   CONFIGS+=" ${config}"
 done <"${META_DIR}/${PROFILES_DIR}/$1"
@@ -40,7 +40,7 @@ for config in ${CONFIGS} ${@}; do
   fi
   echo "  Plugins for $config: ${PLUGINS}"
   configFile="$(mktemp)"
-  dos2unix $configFile
+  if command -v dos2unix &> /dev/null ; then dos2unix $configFile ; fi
   echo -e "$(<"${BASE_DIR}/${META_DIR}/${BASE_CONFIG}${CONFIG_SUFFIX}")\n$(<"${BASE_DIR}/${META_DIR}/${CONFIG_DIR}/${config}${CONFIG_SUFFIX}")" >"$configFile"
   "${BASE_DIR}/${META_DIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASE_DIR}" ${PLUGINS} -c "$configFile"
   rm -f "$configFile"

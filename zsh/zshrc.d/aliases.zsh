@@ -69,19 +69,18 @@ gpom() {
     fi
 }
 
-awscreds() {
-    if [ $# -ne 1 ] ; then
-        echo "Requires 1 argument; the name of the AWS profile to use"
+chgsnd() {
+    if [[ "${1}" == "speakers" ]]; then
+        SPEAKERS=$(pactl list short sinks | grep AudioQuest | awk '{print $2}')
+        pactl set-default-sink $SPEAKERS
+    elif [[ "${1}" == "headphones" ]]; then
+        HEADPHONES=$(pactl list short sinks | grep 'pci-' | awk '{print $2}')
+        pactl set-default-sink $HEADPHONES
+    elif [[ "${1}" == "usb" ]]; then
+        USB=$(pactl list short sinks | grep 'Razer' | awk '{print $2}')
+        pactl set-default-sink $USB
+    else
+        echo "Must specify speakers/headphones"
         return 1
     fi
-
-    grep --quiet $1 ~/.aws/credentials > /dev/null
-    if [ $? -ne 0 ] ; then
-        echo "${1} not found in AWS credentials file"
-        return 1
-    fi
-
-    export AWS_DEFAULT_REGION=eu-west-2
-    export AWS_REGION=eu-west-2
-    export AWS_DEFAULT_PROFILE=$1
 }

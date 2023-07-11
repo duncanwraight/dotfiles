@@ -1,6 +1,9 @@
 alias v="nvim"
 alias lg="lazygit"
-alias gbranch="ZSH_PLUGINS_ALIAS_TIPS_EXCLUDES="git" git rev-parse --abbrev-ref HEAD 2> /dev/null | sed 's/\r//'"
+alias gbranch="ZSH_PLUGINS_ALIAS_TIPS_EXCLUDES="git" git rev-parse --abbrev-ref HEAD 2> /dev/null | sed -E 's/(\n|\r)//'"
+
+alias k="k -h --group-directories-first"
+alias kruncurl="kubectl run curlpod-dwr-$(date +%s) --image=curlimages/curl --rm -i --tty --command -- sh"
 
 oaws() {
     if [ "$#" -eq 0 ]; then
@@ -31,16 +34,13 @@ oaws() {
     fi
 }
 
-killzoom() {
-    ps -aux | grep zoom | grep -v grep | awk '{print $2}' | xargs kill -9
-}
-
-killchrome() {
-    ps -aux | grep chrome | grep -v grep | awk '{print $2}' | xargs kill -9
-}
-
-killteams() {
-    ps -aux | grep teams | grep -v grep | awk '{print $2}' | xargs kill -9
+killapp() {
+    if [[ $# -eq 1 ]]; then
+        ps -aux | grep $1 | grep -v grep | awk '{print $2}' | xargs sudo kill -9
+    else
+        echo "Usage: killapp <<app name as seen in ps>>"
+        return 1
+    fi
 }
 
 killzscaler() {
@@ -83,4 +83,54 @@ chgsnd() {
         echo "Must specify speakers/headphones"
         return 1
     fi
+}
+
+#outsecrets() {
+#    yq '.data | map_values(. | @base64d)'
+#}
+
+outsecrets() {
+    kubectl get secret $1 -o yaml | yq '.data | map_values(. | @base64d)'
+}
+
+alias kns='f() { [ "$1" ] && kubectl config set-context --current --namespace $1 || kubectl config view --minify | grep namespace | cut -d" " -f6 ; } ; f'
+
+knodecheck() {
+    kubectl get node `kubectl get pod $1 -o yaml | yq -r '.spec.nodeName'` --show-labels
+}
+
+kpodrescheck() {
+    kubectl get po -o custom-columns="Name:metadata.name,CPU-request:spec.containers[*].resources.requests.cpu,MEM-request:spec.containers[*].resources.requests.memory,CPU-limit:spec.containers[*].resources.limits.cpu, MEM-limit:spec.containers[*].resources.limits.memory"
+}
+
+gpp() {
+    git checkout $1
+    git pull origin $1
+    git push origin $1
+}
+
+alias fluxrestart='f() { flux suspend helmrelease -n $1 $1 && flux resume helmrelease -n $1 $1 } ; f'
+alias fluxsuspend='f() { flux suspend kustomization -n flux-system application-$1 && flux suspend helmrelease $1 -n $1 } ; f'
+alias fluxresume='f() { flux resume helmrelease $1 -n $1 && flux resume kustomization -n flux-system application-$1 } ; f'
+
+wipe_ecr_repo() {
+    if [[ "$#" -ne 1 ]]; then
+        echo "Usage: wipe_ecr_repo <<repository_name>>"
+        return 1
+    fi
+
+    if [ -z ${AWS_PROFILE+x} ]; then
+        echo "AWS_PROFILE variable is not set"
+        return 1
+    fi
+
+    if [[ "${AWS_PROFILE}" =~ "WS-01NA" ]]; then
+        echo "Cannot wipe repositories on Shared spoke"
+        return 1
+    fi
+
+    echo "Wiping repository ${1} using role ${AWS_PROFILE}"
+    aws ecr batch-delete-image --region eu-west-1 \
+        --repository-name $1 \
+        --image-ids "$(aws ecr list-images --region eu-west-1 --repository-name $1 --query 'imageIds[*]' --output json)" | jq || true
 }

@@ -391,8 +391,8 @@ for_window [instance="sun-awt-X11-XWindowPeer"] border pixel 0
 # exec_always --no-startup-id python3 $HOME/.local/bin/brightness/backbrightness.py -s 0.2 /sys/class/backlight/intel_backlight eDP1 eDP-1 eDP-1-1
 # exec_always --no-startup-id bash $HOME/.local/bin/brightness/set-brightness.sh
 
-# exec_always --no-startup-id feh --bg-fill /home/dunc/Pictures/Wallpapers --randomize
-# exec_always --no-startup-id betterlock screen -u /home/dunc/Pictures/Wallpapers
+#exec_always --no-startup-id feh --bg-fill /home/dunc/Pictures/Wallpapers --randomize
+#exec_always --no-startup-id betterlockscreen -u /home/dunc/Pictures/Wallpapers
 
 # Enable sound controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id /usr/local/bin/volume up
@@ -405,7 +405,7 @@ bindsym XF86AudioPrev exec playerctl previous
 # Enable shutdown menu
 set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
 mode "$mode_system" {
-    bindsym l exec --no-startup-id "i3exit lock", mode "default"
+    bindsym l exec --no-startup-id "betterlockscreen --lock blur", mode "default"
     bindsym e exec --no-startup-id "i3-msg exit", mode "default"
     bindsym s exec --no-startup-id "systemctl suspend", mode "default"
     bindsym h exec --no-startup-id "systemctl hibernate", mode "default"

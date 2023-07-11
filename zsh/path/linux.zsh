@@ -17,5 +17,6 @@ path+=('/usr/local/Discord')
 # bp
 path+=("/opt/zscaler/bin")
 path+=("$HOME/.local/bin/awsconnect")
+path+=("$HOME/Repos/bp/htp-kubernetes-tooling/tools")
 
 export PATH

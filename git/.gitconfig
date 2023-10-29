@@ -5,3 +5,5 @@
     path = ~/Repos/import.io/.gitconfig
 [pull]
 	rebase = true
+[core]
+	editor = nvim

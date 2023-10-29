@@ -1,7 +1,8 @@
-# COL_RED=`tput setaf 196`
 # COL_GRN=`tput setaf 2`
 # COL_LBLUE=`tput setaf 123`
 # COL_BLANK=`tput sgr0`
+
+export GITOPS_CLI_ADO_PAT=6mjlih3cwem3akprf7somwldwii7ofkkvratc3lklfozohia22ra
 
 chgaws() {
     case "$1" in
@@ -105,8 +106,9 @@ helmtest() {
     else
         ENV=dev
     fi
+    KUBERNETES_VERSION=$(aws eks describe-cluster --name htp-$ENV-eks-cluster | jq -r '.cluster.version')
     helm package --version 0.1 $1 -u -d ~/Downloads
-    helm template --debug -f ./$1/values.yaml -f ./$1/environments/$ENV.yaml --set '.jobs[0].image.repository'=test --create-namespace --version 0.1 ~/Downloads/$1-0.1.tgz 
+    helm template --kube-version "${KUBERNETES_VERSION:-1.24}" --debug -f ./$1/values.yaml -f ./$1/environments/$ENV.yaml --set '.jobs[0].image.repository'=test --create-namespace --version 0.1 ~/Downloads/$1-0.1.tgz 
 }
 
 tsup() {
@@ -129,4 +131,73 @@ tsup() {
 
 findcluster() {
     rg -i $1 ~/Repos/bp/htf-infrastructure/app/stacks/htp-config -g "*.tfvars"
+}
+
+preprelease() {
+    if [[ $# -ne 1 ]]; then
+        echo "Usage: preprelease <<env>>"
+        return 1
+    fi
+    chgaws $1
+    source ~/Envs/boto3/bin/activate
+    python ~/Repos/bp/tooling-ancillary/tools/python/prep-release.py
+    deactivate
+}
+
+fluxapply() {
+    REPOS_DIR="/home/dunc/Repos/bp"
+    COL_BLANK=`tput sgr0`
+    COL_RED=`tput setaf 9`
+    COL_GRN=`tput setaf 10`
+    COL_YEL=`tput setaf 11`
+    COL_LBUE=`tput setaf 14`
+    
+    if [[ $# -ne 1 ]]; then
+        echo "!!! ${COL_RED}Usage: fluxapply <<cluster_identifier>>${COL_BLANK}"
+        return 1
+    fi
+
+    CLUSTER="${1}"
+    if [[ "${CLUSTER}" =~ '^([a-z]{1,6})-(.*)' ]]; then
+        CLUSTER_DIR="${match[1]}/${match[2]}"
+        IDENTIFIER="${match[2]}"
+    else
+        CLUSTER_DIR="${CLUSTER}"
+        IDENTIFIER="${CLUSTER}"
+    fi
+
+    echo "\n${COL_GRN}fluxapply${COL_BLANK}"
+    echo "  Cluster identifier: ${COL_LBLUE}${IDENTIFIER}${COL_BLANK}"
+    echo "  Flux directory: ${COL_LBLUE}${CLUSTER_DIR}${COL_BLANK}"
+
+    echo "\n--- ${COL_YEL}Authenticating with cluster${COL_BLANK}\n"
+
+    chgaws "${IDENTIFIER}"
+    if [[ $? -ne 0 ]]; then
+        echo "!!! ${COL_RED}Unable to authenticate. Exiting...${COL_BLANK}"
+        return 1 ;
+    fi
+
+    echo "\n--- ${COL_YEL}Applying Flux manifests${COL_BLANK}\n"
+    
+    kubectl apply -k "${REPOS_DIR}/htp-kubernetes/clusters/${CLUSTER_DIR}"
+    if [[ $? -ne 0 ]]; then
+        echo "\n--- ${COL_YEL}CRDs probably didn't apply first time; retrying${COL_BLANK}\n"
+        kubectl apply -k "${REPOS_DIR}/htp-kubernetes/clusters/${CLUSTER_DIR}"
+    fi
+    if [[ $? -ne 0 ]]; then
+        echo "!!! ${COL_RED}Unable to apply Flux configuration to cluster ${CLUSTER}. Exiting...${COL_BLANK}"
+        return 1
+    fi
+    
+    echo "\n--- ${COL_YEL}Process complete${COL_BLANK}\n"
+}
+
+obsstackmonitor() {
+    if [[ "$#" -ne 1 ]] || [[ ! "${1}" =~ '(loki|tempo|mimir)' ]]; then
+        echo "Usage: obsstackmonitor [loki|tempo|mimir]"
+        return 1
+    fi
+
+    kubectl run "obs-stack-monitor-dwr-${1}" --image=006411612559.dkr.ecr.eu-west-1.amazonaws.com/obs-stack-helper:latest --restart="Never" --rm -i --tty "check-${1}"
 }

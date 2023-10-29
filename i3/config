@@ -1,4 +1,4 @@
-### Colours
+# Colours
 
 # Some colors
 
@@ -80,7 +80,7 @@ set $base0E ${color14}
 set $base0F ${color15}
 
 
-### Binds
+# Binds
 
 
 set $mod Mod4
@@ -95,6 +95,7 @@ bindsym $mod+y border pixel 1
 bindsym $mod+n border normal
 
 font Inconsolata 11
+# font pango: SF Mono 13
 
 floating_modifier $mod
 
@@ -315,23 +316,23 @@ mode "resize" {
 exec_always --no-startup-id /home/dunc/.config/polybar/launch.sh
 
 # Theme colors
-#client.focused #EAD49B #1E272B #EAD49B #9D6A47 #9D6A47
-#client.focused_inactive #EAD49B #1E272B #EAD49B #78824B #78824B
-#client.unfocused #EAD49B #1E272B #EAD49B #78824B #78824B
-#client.urgent #EAD49B #1E272B #EAD49B #78824B #78824B
-#client.placeholder #EAD49B #1E272B #EAD49B #78824B #78824B
-#
-#client.background #1E272B
+client.focused #EAD49B #1E272B #EAD49B #9D6A47 #9D6A47
+client.focused_inactive #EAD49B #1E272B #EAD49B #78824B #78824B
+client.unfocused #EAD49B #1E272B #EAD49B #78824B #78824B
+client.urgent #EAD49B #1E272B #EAD49B #78824B #78824B
+client.placeholder #EAD49B #1E272B #EAD49B #78824B #78824B
+
+client.background #1E272B
 
 # Window color assignments
 #                        border  bckground text    indicator
- client.focused          $base01 $base01   $base07 $base0F
- client.focused_inactive $base02 $base02   $base03 $base0F
- client.unfocused        $base02 $base02   $base03 $base0F
- client.urgent           $base02 $base08   $base00 $base0F
+client.focused          $base01 $base01   $base07 $base0F
+client.focused_inactive $base02 $base02   $base03 $base0F
+client.unfocused        $base02 $base02   $base03 $base0F
+client.urgent           $base02 $base08   $base00 $base0F
 
 
-### i3-gaps
+# i3-gaps
 
 gaps inner 10
 gaps outer 0
@@ -382,7 +383,7 @@ exec --no-startup-id mate-power-manager
 bindsym XF86TouchpadOn exec --no-startup-id synclient Touchpadoff=0
 bindsym XF86TouchpadOff exec --no-startup-id synclient Touchpadoff=1
 
-### My stuff
+# My stuff
 
 # Pycharm
 for_window [class="^jetbrains-.+"][window_type=dialog] focus

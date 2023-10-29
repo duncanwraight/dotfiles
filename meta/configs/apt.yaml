@@ -1,121 +1,129 @@
 - aptget:
-    - apt-transport-https
-    - autoconf
-    - automake
-    - bat
-    - bc
-    - ca-certificates
-    # - chromium-chromedriver
-    - chromium-driver
-    - cmake
-    - cmake-data
-    - containerd
-    # - convert
-    - curl
-    - dconf-cli
-    - dh-autoreconf
-    # - docker-ce
-    # - docker-ce-cli
-    - docker.io
-    - dpkg
-    - feh
-    - flameshot
-    - fonts-material-design-icons-iconfont
-    - fonts-materialdesignicons-webfont
-    - fonts-powerline
-    - fonts-terminus
-    - fzf
-    - galculator
-    - gdb
-    - gettext
-    - gnupg
-    # - gtk2.0
-    - htop
-    # - i3-wm
-    - imagemagick
-    - jq
-    - libappindicator3-0.1-cil
-    # - libappindicator3-1
-    - libasound2-dev
-    - libc++1
-    - libcairo2-dev
-    - libcurl4-openssl-dev
-    - libegl1-mesa
-    - libegl1-mesa-dev
-    - libev-dev
-    - libgl1-mesa-dev
-    - libgl1-mesa-glx
-    - libicu67
-    - libiw-dev
-    - libjsoncpp-dev
-    - libmpdclient-dev
-    - libnl-genl-3-dev
-    - libpango1.0-dev
-    - libpulse-dev
-    - libqt5core5a
-    - libqt5dbus5
-    - libqt5gui5
-    - libqt5network5
-    - libqt5svg5
-    - libqt5widgets5
-    - libstartup-notification0-dev
-    - libtool
-    - libxcb1-dev
-    - libxcb-composite0
-    - libxcb-composite0-dev
-    - libxcb-cursor-dev
-    - libxcb-ewmh-dev
-    - libxcb-icccm4-dev
-    - libxcb-image0-dev
-    - libxcb-keysyms1-dev
-    - libxcb-randr0-dev
-    - libxcb-shape0
-    - libxcb-shape0-dev
-    - libxcb-util0-dev
-    - libxcb-xinerama0-dev
-    - libxcb-xkb-dev
-    - libxcb-xrm0
-    - libxcb-xrm-dev
-    - libxcb-xtest0
-    - libxcb-xtest0-dev
-    - libxkbcommon-dev
-    - libxkbcommon-x11-dev
-    - libyajl-dev
-    - lsb-release
-    - meson
-    # - mssql-cli
-    - neovim
-    # - nerd-fonts
-    - network-manager-gnome
-    - network-manager-openvpn
-    - network-manager-openvpn-gnome
-    - obs-studio
-    - openshot
-    - openvpn
-    - pkg-config
-    - postfix
-    # - pritunl-client-electron
-    # - python
-    - python3-neovim
-    - python3-pip
-    - python3-venv
-    - python3-xcbgen
-    # - python-xcbgen
-    - ripgrep
-    - rofi
-    - slack
-    - snap
-    - snapd
-    # - speedtest
-    # - standard-notes
-    - stow
-    # - sublime-text
-    - tree
-    - unifont
-    - uuid-runtime
-    - wireless-tools
-    - xcb
-    - xcb-proto
-    - xutils-dev
-    - yad
-    # - zoom
+  - apt-transport-https
+  - autoconf
+  - automake
+  - bat
+  - bc
+  - ca-certificates
+  - chromium-driver
+  - cmake
+  - cmake-data
+  - containerd
+  - curl
+  - dconf-cli
+  - dh-autoreconf
+  - docker.io
+  - dpkg
+  - feh
+  - flameshot
+  - fonts-material-design-icons-iconfont
+  - fonts-materialdesignicons-webfont
+  - fonts-powerline
+  - fonts-terminus
+  - fzf
+  - galculator
+  - gdb
+  - gettext
+  - gnupg
+  - htop
+  - i3
+  - imagemagick
+  - jq
+  - libappindicator3-0.1-cil
+  - libasound2-dev
+  - libc++1
+  - libcairo2-dev
+  - libcurl4-openssl-dev
+  - libegl1-mesa
+  - libegl1-mesa-dev
+  - libev-dev
+  - libgl1-mesa-dev
+  - libgl1-mesa-glx
+  - libicu67
+  - libiw-dev
+  - libjsoncpp-dev
+  - libmpdclient-dev
+  - libnl-genl-3-dev
+  - libpango1.0-dev
+  - libpulse-dev
+  - libqt5core5a
+  - libqt5dbus5
+  - libqt5gui5
+  - libqt5network5
+  - libqt5svg5
+  - libqt5widgets5
+  - libstartup-notification0-dev
+  - libtool
+  - libxcb1-dev
+  - libxcb-composite0
+  - libxcb-composite0-dev
+  - libxcb-cursor-dev
+  - libxcb-ewmh-dev
+  - libxcb-icccm4-dev
+  - libxcb-image0-dev
+  - libxcb-keysyms1-dev
+  - libxcb-randr0-dev
+  - libxcb-shape0
+  - libxcb-shape0-dev
+  - libxcb-util0-dev
+  - libxcb-xinerama0-dev
+  - libxcb-xkb-dev
+  - libxcb-xrm0
+  - libxcb-xrm-dev
+  - libxcb-xtest0
+  - libxcb-xtest0-dev
+  - libxkbcommon-dev
+  - libxkbcommon-x11-dev
+  - libyajl-dev
+  - lsb-release
+  - lightdm
+  - meson
+  - neovim
+  - network-manager-gnome
+  - network-manager-openvpn
+  - network-manager-openvpn-gnome
+  - obs-studio
+  - openshot
+  - openvpn
+  - pkg-config
+  - postfix
+  - python3-neovim
+  - python3-pip
+  - python3-venv
+  - python3-xcbgen
+  - ripgrep
+  - rofi
+  - slack
+  - snap
+  - snapd
+  - stow
+  - tree
+  - unifont
+  - uuid-runtime
+  - wireless-tools
+  - xcb
+  - xcb-proto
+  - xutils-dev
+  - yad
+  - gcc
+  - make
+  - libpam0g-dev
+  - libfontconfig1-dev
+  - libx11-xcb-dev
+  - libjpeg-dev
+  # - chromium-chromedriver
+  # - convert
+  # - docker-ce
+  # - docker-ce-cli
+  # - gtk2.0
+  # - i3-wm
+  # - libappindicator3-1
+  # - mssql-cli
+  # - nerd-fonts
+  # - pritunl-client-electron
+  # - python
+  # - python-xcbgen
+  # - speedtest
+  # - standard-notes
+  # - sublime-text
+  # - zoom

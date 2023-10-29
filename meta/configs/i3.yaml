@@ -2,3 +2,8 @@
     ~/.config/i3/config:
       force: true
       path: i3/config
+
+- shell:
+  - [git clone https://github.com/Raymo111/i3lock-color ~/Downloads]
+  - [bash ~/Downloads/i3lock-color/build.sh]
+  - [bash ~/Downloads/i3lock-color/install-i3lock-color.sh]

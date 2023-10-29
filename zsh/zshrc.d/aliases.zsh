@@ -1,6 +1,8 @@
+alias python="python3"
 alias v="nvim"
 alias lg="lazygit"
-alias gbranch="ZSH_PLUGINS_ALIAS_TIPS_EXCLUDES="git" git rev-parse --abbrev-ref HEAD 2> /dev/null | sed -E 's/(\n|\r)//'"
+alias yq="/home/dunc/.local/bin/yq"
+alias gbranch="ZSH_PLUGINS_ALIAS_TIPS_EXCLUDES=\"git\" git rev-parse --abbrev-ref HEAD 2> /dev/null | tr -d \" \t\n\r\""
 
 alias k="k -h --group-directories-first"
 alias kruncurl="kubectl run curlpod-dwr-$(date +%s) --image=curlimages/curl --rm -i --tty --command -- sh"
@@ -93,6 +95,10 @@ outsecrets() {
     kubectl get secret $1 -o yaml | yq '.data | map_values(. | @base64d)'
 }
 
+kind() {
+    yq ea "[.][] | select(.kind==\"$1\")"
+}
+
 alias kns='f() { [ "$1" ] && kubectl config set-context --current --namespace $1 || kubectl config view --minify | grep namespace | cut -d" " -f6 ; } ; f'
 
 knodecheck() {
@@ -101,6 +107,11 @@ knodecheck() {
 
 kpodrescheck() {
     kubectl get po -o custom-columns="Name:metadata.name,CPU-request:spec.containers[*].resources.requests.cpu,MEM-request:spec.containers[*].resources.requests.memory,CPU-limit:spec.containers[*].resources.limits.cpu, MEM-limit:spec.containers[*].resources.limits.memory"
+}
+
+kfindmissingpod() {
+  NAMESPACE=$1
+  kubectl get nodes --no-headers | awk '{print $1}' | grep -v "$(kubectl get pods -o=custom-columns=NAME:.spec.nodeName -n $NAMESPACE | sort -u)"
 }
 
 gpp() {
@@ -133,4 +144,41 @@ wipe_ecr_repo() {
     aws ecr batch-delete-image --region eu-west-1 \
         --repository-name $1 \
         --image-ids "$(aws ecr list-images --region eu-west-1 --repository-name $1 --query 'imageIds[*]' --output json)" | jq || true
+}
+
+helmchartdownload() {
+    if [[ $? -ne 1 ]]; then
+        PORT=3999
+        APPLICATION=$1
+        kubectl port-forward -n flux-system service/source-controller "$PORT":80 &
+        curl http://localhost:$PORT/helmchart/flux-system/$APPLICATION-$APPLICATION/latest.tar.gz --output ~/Downloads/$APPLICATION.tar.gz
+        tar -zxf latest.tar.gz
+        ls -halt ~/Downloads/$APPLICATION
+        killapp port-forward
+    else
+        echo "Usage: helmchartdownload <<chart-name>>"
+    fi
+}
+
+alias owtank="python ~/Documents/ow-tank-selection.py"
+watch() {
+    if [[ "$#" -lt 1 ]]; then
+        echo "Usage: watch [helmrelease|kustomization|pods]"
+        return 1
+    fi
+
+    if [[ "$#" -eq 2 ]]; then
+        namespace="-n ${2}"
+    else
+        namespace="-A"
+    fi
+
+    /usr/bin/watch -n 2 "kubectl get ${1} ${namespace}"
+}
+
+kgetall() {
+  for res in $(kubectl api-resources --verbs=list --namespaced -o name | grep -v 'event'); do 
+    echo "--- $res"
+    kubectl get --show-kind --ignore-not-found $res
+  done
 }

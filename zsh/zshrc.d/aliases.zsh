@@ -6,6 +6,8 @@ alias gbranch="ZSH_PLUGINS_ALIAS_TIPS_EXCLUDES=\"git\" git rev-parse --abbrev-re
 
 alias k="k -h --group-directories-first"
 alias kruncurl="kubectl run curlpod-dwr-$(date +%s) --image=curlimages/curl --rm -i --tty --command -- sh"
+alias krungrpccurl="kubectl run grpccurlpod-dwr-$(date +%s) --image=fullstorydev/grpcurl -- "
+alias kpendingds="~/Envs/utilities/bin/python3 ~/Tooling/kube-pending-ds-nodes.py"
 
 oaws() {
     if [ "$#" -eq 0 ]; then

@@ -2,7 +2,7 @@
 # COL_LBLUE=`tput setaf 123`
 # COL_BLANK=`tput sgr0`
 
-export GITOPS_CLI_ADO_PAT=6mjlih3cwem3akprf7somwldwii7ofkkvratc3lklfozohia22ra
+export GITOPS_CLI_ADO_PAT=nxpmbgzre5pbg6w2vxlenddm6ewizflfcr2bi4owqvrcpvrtd6ea
 
 chgaws() {
     case "$1" in
@@ -200,4 +200,8 @@ obsstackmonitor() {
     fi
 
     kubectl run "obs-stack-monitor-dwr-${1}" --image=006411612559.dkr.ecr.eu-west-1.amazonaws.com/obs-stack-helper:latest --restart="Never" --rm -i --tty "check-${1}"
+}
+
+gitopscli() {
+  /home/dunc/Envs/gitops-cli/bin/python /home/dunc/Repos/bp/htp-kubernetes-tooling/tools/gitops "${@:2}" --env lab --cluster-identifier "$1" --support
 }

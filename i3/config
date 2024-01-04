@@ -106,7 +106,11 @@ bindsym $mod+Shift+q kill
 
 # start program launcher
 #bindsym $mod+d exec dmenu_run
-bindsym $mod+d exec --no-startup-id "rofi -show run -font \\"Inconsolata 20\\""
+# Requires https://github.com/yshui/picom
+exec_always --no-startup-id /usr/local/bin/picom -b -c --config /home/dunc/.config/picom.conf
+# Requires https://github.com/adi1090x/rofi/tree/master
+bindsym $mod+d exec --no-startup-id "/home/dunc/.config/rofi/launchers/type-3/launcher.sh"
+# bindsym $mod+d exec --no-startup-id "rofi -show run -font \\"Inconsolata 20\\""
 #bindsym $mod+d exec --no-startup-id "rofi -combi-modi window,drun,ssh -theme arthur -font \\"Inconsolata 22\\" -show combi"
 
 # change focus
@@ -185,16 +189,24 @@ set $ws9 9
 set $ws0 "vpn"
 
 # monitors
-workspace $ws1 output eDP-1
-workspace $ws5 output eDP-1
-workspace $ws6 output eDP-1
-workspace $ws2 output DP-3 HDMI-1 eDP-1
-workspace $ws7 output DP-3 HDMI-1 eDP-1
-workspace $ws8 output DP-3 HDMI-1 eDP-1
-workspace $ws3 output HDMI-1 eDP-1
-workspace $ws4 output HDMI-1 eDP-1
-workspace $ws9 output HDMI-1 eDP-1
-workspace $ws0 output HDMI-1 eDP-1
+set $mon_laptop eDP-1
+set $mon_laptop_res 1920x1200
+# Direct external 27" monitor
+set $mon_home_ext HDMI-1
+# Lenovo dock
+# set $mon_home_ext DP-3-1-5
+set $mon_home_ext_res 3840x2160
+
+workspace $ws1 output $mon_laptop
+workspace $ws5 output $mon_laptop
+workspace $ws6 output $mon_laptop
+workspace $ws2 output DP-3 $mon_home_ext $mon_laptop
+workspace $ws7 output DP-3 $mon_home_ext $mon_laptop
+workspace $ws8 output DP-3 $mon_home_ext $mon_laptop
+workspace $ws3 output $mon_home_ext $mon_laptop
+workspace $ws4 output $mon_home_ext $mon_laptop
+workspace $ws9 output $mon_home_ext $mon_laptop
+workspace $ws0 output $mon_home_ext $mon_laptop
 
 # assignments
 assign [class="Spotify"] $ws5
@@ -429,14 +441,9 @@ bindsym Print exec "flameshot gui"
 # Monitor selection menu
 set $mode_monitors 1: [LAPTOP]  2: [LAPTOP] [EXT 27]
 
-set $mon_laptop eDP-1
-set $mon_laptop_res 1920x1200
-set $mon_home_ext HDMI-1
-set $mon_home_ext_res 3840x2160
-
 mode "$mode_monitors" {
-     bindsym 1 exec "xrandr --output eDP-1 --pos 0x0 --rotate normal --mode 1920x1200 --scale 1.75x1.75 --output HDMI-1 --off ; betterlockscreen -w dim ; i3 restart", mode "default"
-     bindsym 2 exec "xrandr --output eDP-1 --pos 3840x0 --rotate normal --mode 1920x1200 --scale 1.5x1.5 --primary --output HDMI-1 --pos 0x0 --rotate normal --mode 3840x2160 ; betterlockscreen -w dim ; i3-msg restart", mode "default"
+     bindsym 1 exec "xrandr --output $mon_laptop --pos 0x0 --rotate normal --mode 1920x1200 --scale 1.75x1.75 --output $mon_home_ext --off ; betterlockscreen -w dim ; i3 restart", mode "default"
+     bindsym 2 exec "xrandr --output $mon_laptop --pos 3840x0 --rotate normal --mode 1920x1200 --scale 1.5x1.5 --primary --output $mon_home_ext --pos 0x0 --rotate normal --mode 3840x2160 ; betterlockscreen -w dim ; i3-msg restart", mode "default"
      #bindsym 1 exec "xrandr --output eDP-1 --pos 0x0 --rotate normal --mode 1920x1200 --scale 1.75x1.75 --output HDMI-1 --off ; betterlockscreen -w dim ; i3 restart", mode "default"
      #bindsym 2 exec "xrandr --output eDP-1 --pos 0x0 --rotate normal --mode 1920x1200 --scale 1.5x1.5 --primary --output HDMI-1 --pos 2880x0 --rotate normal --mode 3840x2160 ; betterlockscreen -w dim ; i3-msg restart", mode "default"
      #bindsym 1 exec "xrandr --output eDP-1 --pos 0x0 --rotate normal --mode 1920x1200 --scale 1.75x1.75 --primary --output HDMI-1 --off ; betterlockscreen -u /home/dunc/Pictures/Wallpapers ; i3 restart", mode "default"

@@ -70,6 +70,12 @@ NB: Changes made on 10th Apr 2024 may have broken the Linux installation in a mi
 
 This should install all of the packages used in my Linux dotfiles, but won't install the GUI elements such as i3.
 
+To get these "Linux" dotfiles working, you will also need to:
+
+ - Install Docker Desktop for Windows and [enable the WSL2 backend](https://docs.docker.com/desktop/wsl/#enabling-docker-support-in-wsl-2-distros)
+ - Install a Powerline-patched font from the [powerline-fonts](https://www.github.com/powerline-fonts) repository
+ - Choose a patched font for your Terminal by going to Settings -> Debian -> Appearance -> Font
+
 ## Modifications
 
  - Each application has its own Dotbot configuration in `meta/configs`. Modify these files, or create your own.

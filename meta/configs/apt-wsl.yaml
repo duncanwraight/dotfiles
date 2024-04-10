@@ -25,7 +25,7 @@
     - gnupg
     - htop
     - jq
-    - libappindicator3-0.1-cil
+      #- libappindicator3-0.1-cil
     - libasound2-dev
     - libc++1
     - libcairo2-dev
@@ -35,7 +35,7 @@
     - libev-dev
     - libgl1-mesa-dev
     - libgl1-mesa-glx
-    - libicu67
+      #- libicu67
     - libiw-dev
     - libjsoncpp-dev
     - libmpdclient-dev

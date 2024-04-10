@@ -60,8 +60,13 @@ Tested on Debian 11
  4. `cd` into the repository directory and run `git submodule update --init --recursive`
  5. Run `./install linux`
 
+NB: Changes made on 10th Apr 2024 may have broken the Linux installation in a minor way. Note binary files have changed name.
+
 ### WSL with Debian
- 1. Follow the instructions for Linux, but instead of `./install linux` simply run `./install wsl`
+ 1. Follow the instructions for Linux
+ 2. Run `sudo bash install wsl1` to install packages with sudo
+ 3. If Postfix asks for a domain, set to `username.local` to avoid various Postfix-related errors
+ 4. Run `bash install wsl2` (note absence of sudo) to install all other packages, files and symlinks to local user's home directory
 
 This should install all of the packages used in my Linux dotfiles, but won't install the GUI elements such as i3.
 

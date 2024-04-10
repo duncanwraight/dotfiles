@@ -1,0 +1,4 @@
+- link:
+    ~/.local/bin/popeye: binaries/popeye
+    ~/.local/bin/PurpleExplorer: binaries/PurpleExplorer
+    ~/.local/bin/cht.sh: binaries/cht.sh

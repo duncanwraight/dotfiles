@@ -55,10 +55,15 @@ Everything uses a similar theme, primarily based around [Dracula](https://github
 Tested on Debian 11
 
  1. Install Git: `sudo apt update && sudo apt-get install git`
- 2. Clone this repo into a hidden directory in your home directory by running, for example, `git clone https://github.com/duncz/dotfiles.git ~/.dotfiles`
- 3. `cd` into the repository directory and run `git submodule update --init --recursive`
- 4. Ensure that your `python` command returns version 3. If not, run `sudo apt-get install python-is-python3`
+ 2. Install required Python packages: `sudo apt-get install python3.11 python3-pip python3-apt python-is-pip3`
+ 3. Clone this repo into a hidden directory in your home directory by running, for example, `git clone --recursive https://github.com/duncz/dotfiles.git ~/.dotfiles`
+ 4. `cd` into the repository directory and run `git submodule update --init --recursive`
  5. Run `./install linux`
+
+### WSL with Debian
+ 1. Follow the instructions for Linux, but instead of `./install linux` simply run `./install wsl`
+
+This should install all of the packages used in my Linux dotfiles, but won't install the GUI elements such as i3.
 
 ## Modifications
 

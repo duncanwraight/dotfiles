@@ -1,9 +1,6 @@
 [submodule "crontab-dotbot"]
 	path = .dotbot-crontab
 	url = https://github.com/fundor333/crontab-dotbot.git
-[submodule "dotbot_plugin_aptget"]
-	path = .dotbot-aptget
-	url = git@github.com:dein0s/dotbot_plugin_aptget.git
 [submodule "dotbot-brew"]
 	path = .dotbot-brew
 	url = https://github.com/d12frosted/dotbot-brew.git
@@ -25,3 +22,6 @@
 [submodule "repos-private"]
 	path = repos
 	url = git@github.com:duncz/repos-private.git
+[submodule ".dotbot-aptget"]
+	path = .dotbot-aptget
+	url = https://github.com/alegsan/dotbot-aptget.git

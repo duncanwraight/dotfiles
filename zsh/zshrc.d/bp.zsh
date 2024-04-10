@@ -139,8 +139,8 @@ preprelease() {
         return 1
     fi
     chgaws $1
-    source ~/Envs/boto3/bin/activate
-    python ~/Repos/bp/tooling-ancillary/tools/python/prep-release.py
+    source ~/Envs/prep-release/bin/activate
+    python ~/Repos/bp/htp-tooling-utilities/prep-release/main.py --automated
     deactivate
 }
 

@@ -184,3 +184,18 @@ kgetall() {
     kubectl get --show-kind --ignore-not-found $res
   done
 }
+
+kdeletens() {
+  NAMESPACE=$1
+  echo "--- Deleting namespace ${NAMESPACE}"
+  kubectl proxy &
+  kubectl get namespace $NAMESPACE -o json |jq '.spec = {"finalizers":[]}' >temp.json
+  curl -k -H "Content-Type: application/json" -X PUT --data-binary @temp.json 127.0.0.1:8001/api/v1/namespaces/$NAMESPACE/finalize | jq
+}
+
+klistall() {
+  for type in $(kubectl api-resources --verbs=list --namespaced -o name) ; do
+    echo " .${type}"
+    kubectl get $type
+  done
+}

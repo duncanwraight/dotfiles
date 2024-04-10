@@ -73,7 +73,8 @@ This should install all of the packages used in my Linux dotfiles, but won't ins
 To get these "Linux" dotfiles working, you will also need to:
 
  - Install Docker Desktop for Windows and [enable the WSL2 backend](https://docs.docker.com/desktop/wsl/#enabling-docker-support-in-wsl-2-distros)
- - Install a Powerline-patched font from the [powerline-fonts](https://www.github.com/powerline-fonts) repository
+ - Download a Powerline-patched font like [CaskaydiaCove](https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.0/CascadiaCode.zip) and install _all_ fonts _for all users_ (right-click the fonts to make this option appear)
+ - Run the following command in an Administrator-owned PowerShell terminal: `Install-Module -Name Terminal-Icons -Repository PSGallery`
  - Choose a patched font for your Terminal by going to Settings -> Debian -> Appearance -> Font
 
 ## Modifications

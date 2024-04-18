@@ -202,6 +202,23 @@ obsstackmonitor() {
     kubectl run "obs-stack-monitor-dwr-${1}" --image=006411612559.dkr.ecr.eu-west-1.amazonaws.com/obs-stack-helper:latest --restart="Never" --rm -i --tty "check-${1}"
 }
 
-gitopscli() {
-  /home/dunc/Envs/gitops-cli/bin/python /home/dunc/Repos/bp/htp-kubernetes-tooling/tools/gitops "${@:2}" --env lab --cluster-identifier "$1" --support
+dbuildpush() {
+  RANDSTRING=$(tr -dc A-Za-z0-9 </dev/urandom | head -c 13; echo)
+  REPO=$2
+  ENV=$1
+  IMAGE="006411612559.dkr.ecr.eu-west-1.amazonaws.com/container-images/${REPO}:${RANDSTRING}"
+
+  chgaws shared
+  aws ecr get-login-password --region eu-west-1 | docker login --username AWS --password-stdin 006411612559.dkr.ecr.eu-west-1.amazonaws.com
+
+  docker build -t $IMAGE .
+  docker push $IMAGE
+
+  chgaws $ENV
+
+  echo "!!! New image tag: ${REPO}:${RANDSTRING}"
+}
+
+gitops() {
+  /home/dunc/Envs/gitops-cli/bin/python /home/dunc/Repos/bp/htp-kubernetes-tooling/tools/gitops "${@:1}"
 }

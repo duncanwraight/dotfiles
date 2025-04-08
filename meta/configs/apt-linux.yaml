@@ -24,6 +24,7 @@
   - galculator
   - gdb
   - gettext
+  - google-chrome-stable
   - gnupg
   - htop
   - i3
@@ -82,6 +83,7 @@
   - pkg-config
   - pipx
   - postfix
+  - polybar
   - python3-neovim
   - python3-pip
   - python3-venv

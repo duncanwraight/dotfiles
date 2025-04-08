@@ -443,7 +443,7 @@ set $mode_monitors 1: [LAPTOP]  2: [LAPTOP] [EXT 27]
 
 mode "$mode_monitors" {
      bindsym 1 exec "xrandr --output $mon_laptop --pos 0x0 --rotate normal --mode 1920x1200 --scale 1.75x1.75 --output $mon_home_ext --off ; betterlockscreen -w dim ; i3 restart", mode "default"
-     bindsym 2 exec "xrandr --output $mon_laptop --pos 3840x0 --rotate normal --mode 1920x1200 --scale 1.5x1.5 --primary --output $mon_home_ext --pos 0x0 --rotate normal --mode 3840x2160 ; betterlockscreen -w dim ; i3-msg restart", mode "default"
+     bindsym 2 exec "xrandr --output $mon_laptop --pos 3840x0 --rotate normal --mode 1920x1200 --scale 1.6x1.6 --primary --output $mon_home_ext --pos 0x0 --rotate normal --mode 3840x2160 ; betterlockscreen -w dim ; i3-msg restart", mode "default"
      #bindsym 1 exec "xrandr --output eDP-1 --pos 0x0 --rotate normal --mode 1920x1200 --scale 1.75x1.75 --output HDMI-1 --off ; betterlockscreen -w dim ; i3 restart", mode "default"
      #bindsym 2 exec "xrandr --output eDP-1 --pos 0x0 --rotate normal --mode 1920x1200 --scale 1.5x1.5 --primary --output HDMI-1 --pos 2880x0 --rotate normal --mode 3840x2160 ; betterlockscreen -w dim ; i3-msg restart", mode "default"
      #bindsym 1 exec "xrandr --output eDP-1 --pos 0x0 --rotate normal --mode 1920x1200 --scale 1.75x1.75 --primary --output HDMI-1 --off ; betterlockscreen -u /home/dunc/Pictures/Wallpapers ; i3 restart", mode "default"

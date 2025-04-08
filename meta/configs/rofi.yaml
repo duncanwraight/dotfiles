@@ -2,3 +2,8 @@
     ~/.config/rofi/:
       glob: true
       path: rofi/*
+
+- shell:
+  - [git clone https://github.com/adi1090x/rofi ~/Downloads/rofi]
+  - [bash ~/Downloads/rofi/setup.sh]
+  - [rm -rf ~/Downloads/rofi]

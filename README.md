@@ -44,14 +44,6 @@ Everything uses a similar theme, primarily based around [Dracula](https://github
 
 ## Installation
 
-### Troubleshooting
-If aptget reports a generic failure, e.g:
- ```
- Package containerd marked for install at version 1.6.20~ds1-1+deb12u1
- An error was encountered while executing action aptget
- ```
-Look at the next package in the list (in this instance `curl`) and try to install it manually (e.g. `sudo apt-get install -y curl`). This will give you a better indication of the problem (in this instance, I had a newer version of `libcurl4` than the `curl` package required).
-
 ### Mac
  1. Install Brew: `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"`
  2. Clone this repo into a hidden directory in your home directory by running, for example, `git clone https://github.com/duncz/dotfiles.git ~/.dotfiles`
@@ -60,16 +52,32 @@ Look at the next package in the list (in this instance `curl`) and try to instal
  5. Install the iTerm configuration from `iterm` folder (Preferences -> General and Profiles -> Import)
 
 ### Linux
-Tested on Debian 11
+Tested on Debian 12 (Bookworm)
 
- 1. Install Git: `sudo apt update && sudo apt-get install git`
- 2. Install required Python packages: `sudo apt-get install python3.11 python3-pip python3-apt python-is-python3`
- 3. Clone this repo into a hidden directory in your home directory by running, for example, `git clone --recursive https://github.com/duncz/dotfiles.git ~/.dotfiles`
- 4. `cd` into the repository directory and run `git submodule update --init --recursive`
- 5. Run `sudo ./install linux-root` to install packages using apt
- 6. Run `./install linux` to run all other installation components
-
-NB: Changes made on 10th Apr 2024 may have broken the Linux installation in a minor way. Note binary files have changed name.
+ 1. Ensure `/etc/apt/sources.list` is up to date, e.g. for Debian 12:
+ ```
+ deb https://ftp.debian.org/debian/ bookworm contrib main non-free non-free-firmware
+ # deb-src https://ftp.debian.org/debian/ bookworm contrib main non-free non-free-firmware
+ 
+ deb https://ftp.debian.org/debian/ bookworm-updates contrib main non-free non-free-firmware
+ # deb-src https://ftp.debian.org/debian/ bookworm-updates contrib main non-free non-free-firmware
+ 
+ deb https://ftp.debian.org/debian/ bookworm-proposed-updates contrib main non-free non-free-firmware
+ # deb-src https://ftp.debian.org/debian/ bookworm-proposed-updates contrib main non-free non-free-firmware
+ 
+ deb https://ftp.debian.org/debian/ bookworm-backports contrib main non-free non-free-firmware
+ # deb-src https://ftp.debian.org/debian/ bookworm-backports contrib main non-free non-free-firmware
+ 
+ deb https://security.debian.org/debian-security/ bookworm-security contrib main non-free non-free-firmware
+ # deb-src https://security.debian.org/debian-security/ bookworm-security contrib main non-free non-free-firmware
+ ```
+ 2. Install Git: `sudo apt update && sudo apt-get install git`
+ 3. Install required Python packages: `sudo apt-get install python3.11 python3-pip python3-apt python-is-python3`
+ 4. Clone this repo into a hidden directory in your home directory by running, for example, `git clone --recursive https://github.com/duncz/dotfiles.git ~/.dotfiles`
+ 5. `cd` into the repository directory and run `git submodule update --init --recursive`
+ 6. Run `sudo ./install linux-root` to install packages using apt
+ 7. Run `./install linux` to run all other installation components
+ 8. Reboot machine and log in to i3wm
 
 ### WSL with Debian
  1. Follow the instructions for Linux
@@ -95,17 +103,17 @@ To get these "Linux" dotfiles working, you will also need to:
 ## Troubleshooting
 
  - If Zsh starts playing up, e.g. prompt changes, try deleting the `.zgenom` folder
-
+ - If aptget reports a generic failure, e.g:
+    ```
+    Package containerd marked for install at version 1.6.20~ds1-1+deb12u1
+    An error was encountered while executing action aptget
+    ```
+   Look at the next package in the list (in this instance `curl`) and try to install it manually (e.g. `sudo apt-get install -y curl`). This will give you a better indication of the problem (in this instance, I had a newer version of `libcurl4` than the `curl` package required).
+   
 ## CHANGELOG
 
 See commits.
 
 ## TODO
 
-Quite a few applications are missing from Linux because they're not installed with `apt` and I haven't had time to scrape through my history to find how they were installed. Off the top of my head...
-
- - kubectl
- - helm
- - terraform
-
-Also need to find all snap-installed applications and create a config for that.
+- Need to create configuration for Snap-installed applications

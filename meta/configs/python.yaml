@@ -1,3 +1,5 @@
+# NB: With newer versions of Python, globally-installed pip libraries won't work
+# Instead, use the apt equivalents like `sudo apt-get install python3-...`
 - link:
     ~/.config/pip/pip.conf:
       path: pip/pip.conf

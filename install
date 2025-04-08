@@ -42,6 +42,6 @@ for config in ${CONFIGS} ${@}; do
   configFile="$(mktemp)"
   if command -v dos2unix &> /dev/null ; then dos2unix $configFile ; fi
   echo -e "$(<"${BASE_DIR}/${META_DIR}/${BASE_CONFIG}${CONFIG_SUFFIX}")\n$(<"${BASE_DIR}/${META_DIR}/${CONFIG_DIR}/${config}${CONFIG_SUFFIX}")" >"$configFile"
-  "${BASE_DIR}/${META_DIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASE_DIR}" ${PLUGINS} -c "$configFile"
+  "${BASE_DIR}/${META_DIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -v -d "${BASE_DIR}" ${PLUGINS} -c "$configFile"
   rm -f "$configFile"
 done

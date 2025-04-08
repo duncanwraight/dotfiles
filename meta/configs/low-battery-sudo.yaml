@@ -1,0 +1,8 @@
+- link:
+    /usr/local/bin/low_battery_warning.sh: low-battery/low_battery_warning.sh
+    /etc/logrotate.d/low_battery: low-battery/logrotate/low_battery
+
+- crontab:
+  - cron: "* * * * *"
+    command: export DISPLAY=:0 && export XDG_RUNTIME_DIR="/run/user/1000" && /usr/local/bin/low_battery_warning.sh >> /var/log/low_battery.log 2>&1
+    platform: Linux

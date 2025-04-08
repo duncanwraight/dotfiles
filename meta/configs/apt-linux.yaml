@@ -29,7 +29,6 @@
   - i3
   - imagemagick
   - jq
-  - libappindicator3-0.1-cil
   - libasound2-dev
   - libc++1
   - libcairo2-dev
@@ -37,9 +36,6 @@
   - libegl1-mesa
   - libegl1-mesa-dev
   - libev-dev
-  - libgl1-mesa-dev
-  - libgl1-mesa-glx
-  - libicu67
   - libiw-dev
   - libjsoncpp-dev
   - libmpdclient-dev
@@ -76,16 +72,15 @@
   - libxkbcommon-x11-dev
   - libyajl-dev
   - lsb-release
-  - lightdm
   - meson
   - neovim
   - network-manager-gnome
   - network-manager-openvpn
   - network-manager-openvpn-gnome
   - obs-studio
-  - openshot
   - openvpn
   - pkg-config
+  - pipx
   - postfix
   - python3-neovim
   - python3-pip
@@ -111,6 +106,8 @@
   - libfontconfig1-dev
   - libx11-xcb-dev
   - libjpeg-dev
+  - zsh
+  # - lightdm
   # - chromium-chromedriver
   # - convert
   # - docker-ce
@@ -127,3 +124,8 @@
   # - standard-notes
   # - sublime-text
   # - zoom
+  # - openshot
+  # - libappindicator3-0.1-cil
+  # - libicu67
+  # - libgl1-mesa-dev
+  # - libgl1-mesa-glx

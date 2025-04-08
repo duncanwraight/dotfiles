@@ -16,6 +16,7 @@
 [submodule "dotbot"]
 	path = meta/.dotbot
 	url = https://github.com/anishathalye/dotbot
+	ignore = dirty
 [submodule "ssh-private"]
 	path = ssh
 	url = git@github.com:duncz/ssh-private.git

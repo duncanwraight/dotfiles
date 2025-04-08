@@ -1,0 +1,3 @@
+apt-linux:.dotbot-aptget
+binaries-sudo
+low-battery-sudo:.dotbot-crontab

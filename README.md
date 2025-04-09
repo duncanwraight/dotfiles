@@ -116,4 +116,4 @@ See commits.
 
 ## TODO
 
-- Need to create configuration for Snap-installed applications
+- Nvim setup is outdated; should be updated to use NvChad

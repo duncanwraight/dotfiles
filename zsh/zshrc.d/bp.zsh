@@ -30,16 +30,36 @@ chgaws() {
             spoke="WS-01VL"
             environment="scratch"
             ;;
-        "golden")
+        "poc")
             spoke="WS-01VI"
-            environment="golden"
+            environment="poc"
+            ;;
+        "public-sbx")
+            spoke="WS-02DI"
+            environment="public-sbx"
+            ;;
+        "public-sbx-sp")
+            spoke="WS-02OH"
+            environment="public-sbx-sp"
+            ;;
+        "public-prd")
+            spoke="WS-02H2"
+            environment="public-prd"
+            ;;
+        "public-prd-sp")
+            spoke="WS-02KL"
+            environment="public-prd-sp"
+            ;;
+        "prd-bb")
+            spoke="WS-02LG"
+            environment="prd-bb"
             ;;
         [0-9][0-9][0-9][0-9][0-9][0-9][0-9])
             spoke="WS-01MG"
             environment="lab"
             ;;
         *)
-            echo "usage: chgaws [lab|dev|sbx|prd|shared|01234567]"
+            echo "usage: chgaws [poc|lab|dev|sbx|public-sbx|prd|public-prd|shared|01234567]"
             return 1
             ;;
     esac
@@ -111,21 +131,35 @@ helmtest() {
     helm template --kube-version "${KUBERNETES_VERSION:-1.24}" --debug -f ./$1/values.yaml -f ./$1/environments/$ENV.yaml --set '.jobs[0].image.repository'=test --create-namespace --version 0.1 ~/Downloads/$1-0.1.tgz 
 }
 
-tsup() {
-    if [[ $# -lt 1 ]]; then
-        echo "Must provide a cluster identifier, e.g. dev|sbx|htp-1234567"
+ts() {
+    if [[ $# -lt 2 ]]; then
+        echo "Must provide an action, e.g. up|plan and a cluster identifier, e.g. dev|sbx|lab-1234567"
         return 0
     fi
 
-    TS_ENV=$1 terraspace up htp-config -y
-    TS_ENV=$1 terraspace all plan
+    ACTION="plan"
+    if [[ "${1}" == "up" ]]; then ACTION="up" && CONFIRMATION='-y'; fi
+    shift
 
-    echo
-    read "REPLY?${COL_GRN}Do you want to apply these changes?${COL_BLANK} "
-    echo
-    if [[ $REPLY =~ ^[Yy]$ ]]
-    then
-        TS_ENV=$1 terraspace all up -y
+    crepo infra
+
+    if [[ "$1" =~ "lab-" ]]; then
+      chgaws "${1/lab-/}"
+    else
+      chgaws $1
+    fi
+
+    # If we're "all up"ing, we don't need the separate htp-config run
+    if [[ $# -eq 1 ]] && [[ "${ACTION}" == "up" ]]; then
+      TS_ENV=$1 terraspace all up $CONFIRMATION
+      return
+    fi
+
+    TS_ENV=$1 terraspace up htp-config -y
+    if [[ $# -eq 2 ]]; then
+      TS_ENV=$1 terraspace $ACTION $2 $CONFIRMATION
+    else
+      TS_ENV=$1 terraspace all $ACTION $CONFIRMATION
     fi
 }
 
@@ -221,4 +255,27 @@ dbuildpush() {
 
 gitops() {
   /home/dunc/Envs/gitops-cli/bin/python /home/dunc/Repos/bp/htp-kubernetes-tooling/tools/gitops "${@:1}"
+}
+
+deletecluster() {
+  echo "--- CREATING ACCESS POLICY"
+  printf 'Enter the Ephemeral Lab cluster identifier (no prefix): '
+  read CLUSTER_TO_DESTROY
+  
+  printf 'Have the node groups been destroyed by Terraform? (Y/n) '
+  read NODE_GROUPS_DESTROYED
+  if [[ ! "${NODE_GROUPS_DESTROYED}" == "Y" ]] && [[ ! "${NODE_GROUPS_DESTROYED}" == "y" ]]; then exit 0 ; fi
+  
+  aws --no-cli-pager eks create-access-entry --cluster-name htp-$CLUSTER_TO_DESTROY-lab-eks-cluster --principal-arn arn:aws:iam::110210071204:role/WS-01MG-role_DEVOPS &&
+  aws --no-cli-pager eks associate-access-policy --cluster-name htp-$CLUSTER_TO_DESTROY-lab-eks-cluster --principal-arn arn:aws:iam::110210071204:role/WS-01MG-role_DEVOPS --policy-arn "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy" --access-scope type=cluster
+  
+  echo "--- DELETING FLUX NAMESPACE"
+  kdeletens flux-system
+  
+  printf 'Has all of the Terraform been destroyed? (Y/n) '
+  read TERRAFORM_DESTROYED
+  if [[ ! "${TERRAFORM_DESTROYED}" == "Y" ]] && [[ ! "${TERRAFORM_DESTROYED}" == "y" ]]; then exit 0 ; fi
+  echo "--- REMOVING LEFTOVER KARPENTER INSTANCES"
+  for instance in $(aws --no-cli-pager ec2 describe-instances --filters "Name=tag-key,Values=kubernetes.io/cluster/htp-$CLUSTER_TO_DESTROY-lab-eks-cluster" --query 'Reservations[*].Instances[*].InstanceId' --output text) ; do echo "Deleting instance ${instance}" && aws --no-cli-pager ec2 terminate-instances --instance-ids $instance ; done
+  unset CLUSTER_TO_DESTROY
 }

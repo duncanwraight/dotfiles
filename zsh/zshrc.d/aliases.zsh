@@ -5,7 +5,7 @@ alias yq="/home/dunc/.local/bin/yq"
 alias gbranch="ZSH_PLUGINS_ALIAS_TIPS_EXCLUDES=\"git\" git rev-parse --abbrev-ref HEAD 2> /dev/null | tr -d \" \t\n\r\""
 
 alias k="k -h --group-directories-first"
-alias kruncurl="kubectl run curlpod-dwr-$(date +%s) --image=curlimages/curl --rm -i --tty --command -- sh"
+alias kruncurl="kubectl run curlpod-dwr-$(date +%s) --image=006411612559.dkr.ecr.eu-west-1.amazonaws.com/container-images/curl:8.2.1 --rm -i --tty --command -- sh"
 alias krungrpccurl="kubectl run grpccurlpod-dwr-$(date +%s) --image=fullstorydev/grpcurl -- "
 alias kpendingds="~/Envs/utilities/bin/python3 ~/Tooling/kube-pending-ds-nodes.py"
 
@@ -191,6 +191,9 @@ kdeletens() {
   kubectl proxy &
   kubectl get namespace $NAMESPACE -o json |jq '.spec = {"finalizers":[]}' >temp.json
   curl -k -H "Content-Type: application/json" -X PUT --data-binary @temp.json 127.0.0.1:8001/api/v1/namespaces/$NAMESPACE/finalize | jq
+  echo "--- Cleaning up processes"
+  pkill kubectl
+  rm temp.json
 }
 
 klistall() {
@@ -199,3 +202,69 @@ klistall() {
     kubectl get $type
   done
 }
+
+jsonlogs() {
+  if [[ "$1" == "ingress" ]]; then
+    incl="remote_addr"
+    if [[ "$#" -eq 2 ]]; then incl="${2}"; fi
+    stern -o raw -n ingress-nginx ingress-nginx --tail 10 -i $incl | jq -r 'def cyan: "\u001b[36m"; def red: "\u001b[31m"; def yellow: "\u001b[33m"; def reset: "\u001b[0m"; . | ("[" + yellow + .ingress_name + reset + "] " + .request + " | " + cyan + .status + reset + " | " + .remote_addr + " | " + red + .remote_user + reset)'
+  elif [[ "$1" == "obsproxy" ]]; then
+    if [[ "$#" -eq 2 ]]; then incl="-i ${2}"; fi
+    stern -o raw -n observability-proxy observability-proxy-ingestion --tail 10 $incl | jq -r 'def n: if . == "" then null else . end; def cyan: "\u001b[36m"; def red: "\u001b[31m"; def yellow: "\u001b[33m"; def reset: "\u001b[0m"; . | ("[" + yellow + .time + reset + "] " + .method + " " + .uri + " | " + cyan + (.status|tostring) + reset + " | " + red + (.forwardedfor|n // "(no forwardedfor IP)") + " - " + (.username|n // "(no user)") + reset)'
+  else
+    NAMESPACE=$1
+    if [[ "$?" -eq 2 ]]; then NAMESPACE=$2; fi
+      stern -o raw -n $2 $1 --tail 10 | jq -r 
+  fi
+}
+
+klistnodesinaz() {
+  if [[ "$#" -eq 1 ]]; then APP="-l app=${1}"; fi
+  kubectl get nodes --show-labels $APP | tail -n +2 | while read node; do
+      name=$(echo "$node" | awk '{print $1}')
+      zone=$(echo "$node" | awk '{print $6}' | awk -F ',' '{for(i=1;i<=NF;i++){print $i}} ' | grep 'failure-domain.beta.kubernetes.io/zone')
+      zone=$(echo $zone | sed 's/failure-domain.beta.kubernetes.io\///')
+      zones="$zones\n$( echo $zone: $name)"; 
+  done
+  echo $zones | sort
+  unset zones
+}
+
+alias fluxsuspended="kubectl get kustomization,hr,gitrepo -A -o json | jq ' .items[] | {"kind": .kind, "name": .metadata.name, "suspended": .spec.suspend } | select(.suspended==true)'"
+
+clusterscale() {
+  for ns in $(kubectl get ns --no-headers | awk '{print $1}'); do
+    if [[ "$1" == "down" ]]; then
+      for dep in $(kubectl get deployments -n $ns --no-headers | awk '{print $1}'); do
+        if [[ ! "${dep}" =~ "No resources" ]] && [[ ! "${dep}" =~ karpenter ]] && [[ ! "${dep}" =~ coredns ]]; then
+          kubectl scale -n $ns deployment/$dep --replicas=0
+        fi
+      done
+      for ss in $(kubectl get statefulset -n $ns --no-headers | awk '{print $1}'); do
+        if [[ ! "${ss}" =~ "No resources" ]]; then
+          kubectl scale -n $ns statefulset/$ss --replicas=0
+        fi
+      done
+    elif [[ "$1" == "up" ]]; then
+      for dep in $(kubectl get deployments -n $ns --no-headers | awk '{print $1}'); do
+        if [[ ! "${dep}" =~ "No resources" ]]; then
+          reps=$(kubectl get deployment -n $ns $dep -o yaml | yq '.spec.replicas')
+          if [[ -z $reps ]] || [[ ! $reps -gt 0 ]]; then reps=1 ; fi
+          kubectl scale -n $ns deployment/$dep --replicas=$reps
+        fi
+      done
+      for ss in $(kubectl get statefulsets -n $ns --no-headers | awk '{print $1}'); do
+        if [[ ! "${ss}" =~ "No resources" ]]; then
+          reps=$(kubectl get statefulset -n $ns $ss -o yaml | yq '.spec.replicas')
+          if [[ -z $reps ]] || [[ ! $reps -gt 0 ]]; then reps=1 ; fi
+          kubectl scale -n $ns statefulset/$ss --replicas=$reps
+        fi
+      done
+    else
+      echo "Usage: clusterscale up|down"
+    fi
+  done
+}
+
+alias wifi="nmcli connection down 'Dunder MiffLAN' ; sleep 3 ; nmcli connection up 'Dunder MiffLAN'"
+alias discordupgrade="sudo dpkg -i $(ls -p -t ~/Downloads/discord-*.deb | head -1)"

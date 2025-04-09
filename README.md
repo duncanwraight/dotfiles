@@ -113,7 +113,3 @@ To get these "Linux" dotfiles working, you will also need to:
 ## CHANGELOG
 
 See commits.
-
-## TODO
-
-- Nvim setup is outdated; should be updated to use NvChad

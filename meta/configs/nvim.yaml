@@ -1,4 +1,12 @@
-- link:
-    ~/.config/nvim/:
-      glob: true
-      path: nvim/*
+- shell:
+  - [rm -rf ~/.local/nvim]
+  - [mkdir -p ~/Downloads/nvim]
+  - [wget https://github.com/neovim/neovim/releases/download/v0.11.0/nvim-linux-x86_64.tar.gz -O ~/Downloads/nvim.tar.gz]
+  - [tar xzvf ~/Downloads/nvim.tar.gz -C ~/Downloads/nvim]
+  - [mv ~/Downloads/nvim/nvim-linux-x86_64 ~/.local/nvim]
+  - [rm -rf ~/.cache/nvim]
+  - [rm -rf ~/.config/nvim]
+  - [rm -rf ~/.local/state/nvim]
+  - [rm -rf ~/.local/share/nvim]
+  - [git clone https://github.com/NvChad/starter ~/.config/nvim]
+  - [rm -rf ~/Downloads/nvim]

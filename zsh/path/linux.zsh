@@ -5,7 +5,7 @@ path+=("$HOME/.local/bin")
 path+=("$HOME/.npm-global/bin")
 
 # Neovim
-path+=("/usr/local/nvim/bin")
+path+=("$HOME/.local/nvim/bin")
 
 # Snap
 path+=("/snap/bin")

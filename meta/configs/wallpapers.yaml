@@ -1,0 +1,4 @@
+- link:
+    ~/Pictures/Wallpapers:
+      force: true
+      path: wallpapers

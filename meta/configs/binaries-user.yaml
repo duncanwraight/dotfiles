@@ -2,3 +2,6 @@
     ~/.local/bin/popeye: binaries/popeye
     ~/.local/bin/PurpleExplorer: binaries/PurpleExplorer
     ~/.local/bin/cht.sh: binaries/cht.sh
+
+- shell:
+  - [wget https://discord.com/api/download\?platform\=linux\&format\=deb -O ~/Downloads/discord-latest.deb]

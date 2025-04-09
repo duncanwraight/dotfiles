@@ -1,9 +1,5 @@
-- link:
-    ~/.config/rofi/:
-      glob: true
-      path: rofi/*
-
 - shell:
+  - [rm -rf ~/.config/rofi*]
   - [git clone https://github.com/adi1090x/rofi ~/Downloads/rofi]
-  - [bash ~/Downloads/rofi/setup.sh]
+  - [cd ~/Downloads/rofi && bash setup.sh]
   - [rm -rf ~/Downloads/rofi]

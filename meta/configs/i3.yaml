@@ -6,4 +6,5 @@
 - shell:
   - [rm -rf ~/Downloads/i3lock-color]
   - [git clone https://github.com/Raymo111/i3lock-color ~/Downloads/i3lock-color]
-  - [bash ~/Downloads/i3lock-color/install-i3lock-color.sh]
+  - [cd ~/Downloads/i3lock-color && bash install-i3lock-color.sh]
+  - [feh --bg-fill /home/dunc/Pictures/Wallpapers --randomize]

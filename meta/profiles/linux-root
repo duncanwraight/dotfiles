@@ -5,3 +5,4 @@ binaries-sudo
 low-battery-sudo:.dotbot-crontab
 fonts
 picom-sudo:.dotbot-aptget
+i3-sudo:.dotbot-aptget

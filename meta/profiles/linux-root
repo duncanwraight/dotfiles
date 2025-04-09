@@ -4,3 +4,4 @@ snap-sudo
 binaries-sudo
 low-battery-sudo:.dotbot-crontab
 fonts
+picom-sudo:.dotbot-aptget

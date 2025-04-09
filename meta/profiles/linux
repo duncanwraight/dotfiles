@@ -1,5 +1,6 @@
 x11
 i3
+picom
 pipx
 nvim
 polybar

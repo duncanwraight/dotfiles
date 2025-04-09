@@ -1,0 +1,4 @@
+- link:
+    ~/.config/picom.conf:
+      force: true
+      path: picom/picom.conf

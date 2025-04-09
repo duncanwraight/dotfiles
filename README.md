@@ -103,6 +103,7 @@ To get these "Linux" dotfiles working, you will also need to:
 ## Troubleshooting
 
  - If Zsh starts playing up, e.g. prompt changes, try deleting the `.zgenom` folder
+ - There is currently a [known issue](https://github.com/adi1090x/rofi/issues/179) with Rofi, which is easily fixed with a line of code - but hopefully will be fixed in the near future
  - If aptget reports a generic failure, e.g:
     ```
     Package containerd marked for install at version 1.6.20~ds1-1+deb12u1

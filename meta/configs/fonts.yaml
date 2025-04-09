@@ -1,0 +1,8 @@
+- shell:
+  - [mkdir ~/Downloads/fonts]
+  - [wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.3.0/SourceCodePro.tar.xz -O ~/Downloads/fonts.tar.xz]
+  - [tar -xf ~/Downloads/fonts.tar.xz -O ~/Downloads/fonts]
+  - [sudo mv ~/Downloads/fonts/*.ttf /usr/share/fonts/truetype]
+  - [cd /usr/share/fonts/truetype && sudo mkfontscale && sudo mkfontdir && fc-cache && sudo fc-cache]
+  - [xset fp rehash]
+  - [rm -rf ~/Downloads/fonts]

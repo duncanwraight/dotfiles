@@ -3,3 +3,4 @@ apt-linux:.dotbot-aptget
 snap-sudo
 binaries-sudo
 low-battery-sudo:.dotbot-crontab
+fonts

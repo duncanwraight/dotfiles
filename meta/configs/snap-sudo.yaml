@@ -1,3 +1,4 @@
 - shell:
   - [sudo snap install core snapd]
   - [sudo snap install slack]
+  - [sudo snap install obsidian --classic]

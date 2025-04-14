@@ -80,6 +80,7 @@
   - network-manager-openvpn-gnome
   - obs-studio
   - openvpn
+  - pavucontrol
   - pkg-config
   - pipx
   - postfix

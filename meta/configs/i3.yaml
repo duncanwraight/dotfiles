@@ -2,6 +2,9 @@
     ~/.config/i3/config:
       force: true
       path: i3/config
+    ~/.config/dunst/dunstrc:
+      force: true
+      path: dunst/dunstrc
 
 - shell:
   - [rm -rf ~/Downloads/i3lock-color]

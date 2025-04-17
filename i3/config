@@ -324,7 +324,7 @@ mode "resize" {
 # Autostart applications
 # exec --no-startup-id nm-applet
 # exec_always --no-startup-id ff-theme-util
-# exec_always --no-startup-id dunst
+exec_always --no-startup-id dunst
 exec_always --no-startup-id /home/dunc/.config/polybar/launch.sh
 
 # Theme colors
@@ -407,10 +407,17 @@ for_window [instance="sun-awt-X11-XWindowPeer"] border pixel 0
 #exec_always --no-startup-id feh --bg-fill /home/dunc/Pictures/Wallpapers --randomize
 #exec_always --no-startup-id betterlockscreen -u /home/dunc/Pictures/Wallpapers
 
+# Enable brightness controls
+# Requires `brightnessctl` package and may not work on all devices
+bindsym XF86MonBrightnessUp exec brightnessctl set +10%
+bindsym XF86MonBrightnessDown exec brightnessctl set 10%-
+
+# Volume Control (with Dunst notifications)
+bindsym XF86AudioRaiseVolume exec --no-startup-id pamixer -i 5 && notify-send "Volume: $(pamixer --get-volume)%" -h int:value:$(pamixer --get-volume) -t 1000
+bindsym XF86AudioLowerVolume exec --no-startup-id pamixer -d 5 && notify-send "Volume: $(pamixer --get-volume)%" -h int:value:$(pamixer --get-volume) -t 1000
+bindsym XF86AudioMute exec --no-startup-id pamixer -t && notify-send "Volume: $(if pamixer --get-mute; then echo "Muted"; else echo "Unmuted"; fi)" -t 1000
+
 # Enable sound controls
-bindsym XF86AudioRaiseVolume exec --no-startup-id /usr/local/bin/volume up
-bindsym XF86AudioLowerVolume exec --no-startup-id /usr/local/bin/volume down
-bindsym XF86AudioMute exec --no-startup-id amixer -q set Master toggle
 bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous

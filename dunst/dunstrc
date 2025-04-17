@@ -1,0 +1,68 @@
+[global]
+    # Position & Appearance
+    monitor = 0
+    follow = keyboard
+
+    # Progress bar for volume etc
+    progress_bar = true
+    progress_bar_height = 5
+    progress_bar_frame_width = 0
+    progress_bar_min_width = 150
+    progress_bar_max_width = 300
+
+    ## Stacking notifications
+    # Positioning
+    origin = top-right            # Stack from top-right corner
+    offset = 20x50               # 20px from right, 50px from top (adjust Y for your bar)
+    
+    # Size
+    width = 350                  # Fixed width
+    height = 100
+    notification_limit = 5       # Max stacked notifications
+    gap_size = 10                # Space between notifications
+    
+    # Appearance
+    separator_height = 1         # Thin line between notifications (0 to disable)
+    padding = 12                 # Inner padding
+    horizontal_padding = 12       # Left/right padding
+
+    # Font & Text
+    font = Inconsolata 10
+    line_height = 0
+    markup = full
+    format = "<b>%s</b>\n%b"
+
+    # Behavior
+    idle_threshold = 120
+    ignore_dbusclose = false
+    mouse_left_click = close_current
+    mouse_middle_click = do_action
+    mouse_right_click = close_all
+
+    # Rounded corners (requires compositor like picom)
+    corner_radius = 8
+    
+    # Icons (if you want them)
+    icon_position = left
+    max_icon_size = 32
+
+# Low urgency (e.g., background notifications)
+[urgency_low]
+    background = "#2e3440"
+    foreground = "#d8dee9"
+    frame_color = "#3b4252"
+    timeout = 5
+
+# Normal urgency (default)
+[urgency_normal]
+    background = "#3b4252"
+    foreground = "#e5e9f0"
+    frame_color = "#4c566a"
+    timeout = 10
+
+# Critical urgency (errors, important alerts)
+[urgency_critical]
+    background = "#bf616a"
+    foreground = "#eceff4"
+    frame_color = "#d08770"
+    timeout = 0

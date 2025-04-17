@@ -4,6 +4,7 @@
   - automake
   - bat
   - bc
+  - brightnessctl
   - ca-certificates
   - chromium-driver
   - cmake
@@ -80,6 +81,7 @@
   - network-manager-openvpn-gnome
   - obs-studio
   - openvpn
+  - pamixer
   - pavucontrol
   - pkg-config
   - pipx
